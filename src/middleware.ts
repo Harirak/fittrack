@@ -20,10 +20,11 @@ const isPublicRoute = createRouteMatcher([
   '/',
 ]);
 
-export default clerkMiddleware((auth, req) => {
+export default clerkMiddleware(async (auth, req) => {
   // Redirect authenticated users from public pages to dashboard
   if (isPublicRoute(req)) {
-    if (auth().userId && req.nextUrl.pathname === '/') {
+    const session = await auth();
+    if (session.userId && req.nextUrl.pathname === '/') {
       const url = req.nextUrl.clone();
       url.pathname = '/dashboard';
       return NextResponse.redirect(url);
@@ -32,7 +33,7 @@ export default clerkMiddleware((auth, req) => {
 
   // Protect routes that require authentication
   if (isProtectedRoute(req)) {
-    auth.protect();
+    await auth.protect();
   }
 });
 
