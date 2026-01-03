@@ -30,6 +30,7 @@ export const users = pgTable('users', {
   weightKg: real('weight_kg'),
   unitPreference: unitPreferenceEnum('unit_preference').default('metric').notNull(),
   fitnessLevel: fitnessLevelEnum('fitness_level').default('beginner').notNull(),
+  onboardingCompleted: boolean('onboarding_completed').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -74,7 +75,7 @@ export const treadmillData = pgTable('treadmill_data', {
 export const strengthWorkoutData = pgTable('strength_workout_data', {
   workoutId: text('workout_id').references(() => workouts.id, { onDelete: 'cascade' }).primaryKey(),
   planId: text('plan_id').references(() => workoutPlans.id, { onDelete: 'set null' }),
-  exercises: jsonb('exercises').$type<StrengthExerciseLog>().notNull(),
+  exercises: jsonb('exercises').$type<StrengthExerciseLog[]>().notNull(),
 });
 
 // Type for strength workout exercises JSON field

@@ -120,11 +120,11 @@
 
 ### Offline Support for User Story 2
 
-- [ ] T050 [US2] Create `src/lib/offline/storage.ts` with IndexedDB setup for pending workouts using `idb`
-- [ ] T051 [US2] Create `src/hooks/useOfflineSync.ts` hook to detect online status and trigger sync
-- [ ] T052 [US2] Create `src/app/api/workouts/sync/route.ts` API route for batch syncing offline workouts
-- [ ] T053 [US2] Add offline indicator badge to WorkoutCard for unsynced workouts
-- [ ] T054 [US2] Integrate offline save/sync into workout completion flow
+- [X] T050 [US2] Create `src/lib/offline/storage.ts` with IndexedDB setup for pending workouts using `idb`
+- [X] T051 [US2] Create `src/hooks/useOfflineSync.ts` hook to detect online status and trigger sync
+- [X] T052 [US2] Create `src/app/api/workouts/sync/route.ts` API route for batch syncing offline workouts
+- [X] T053 [US2] Add offline indicator badge to WorkoutCard for unsynced workouts
+- [X] T054 [US2] Integrate offline save/sync into workout completion flow
 
 **Checkpoint**: User Story 2 complete - users can log treadmill workouts (live or manual) with offline support
 
@@ -138,14 +138,14 @@
 
 ### Implementation for User Story 3
 
-- [ ] T055 [P] [US3] Create `src/components/ui/EquipmentToggle.tsx` with icon-based toggle buttons for each equipment type
-- [ ] T056 [US3] Create `src/lib/db/queries/equipment.ts` with equipment profile CRUD operations
-- [ ] T057 [US3] Create `src/app/api/user/equipment/route.ts` API routes for GET/PUT equipment profile
-- [ ] T058 [US3] Create `src/app/(dashboard)/onboarding/page.tsx` with multi-step onboarding flow (fitness level, equipment, goals)
-- [ ] T059 [US3] Create `src/app/(dashboard)/profile/page.tsx` with settings sections for profile, equipment, unit preferences
-- [ ] T060 [US3] Create `src/app/api/user/profile/route.ts` API routes for GET/PATCH user profile (weight, unit preference, fitness level)
-- [ ] T061 [US3] Add onboarding redirect logic for new users who haven't completed setup
-- [ ] T062 [US3] Create `src/app/api/user/goals/route.ts` API routes for GET/PUT activity goals (daily/weekly)
+- [X] T055 [P] [US3] Create `src/components/ui/EquipmentToggle.tsx` with icon-based toggle buttons for each equipment type
+- [X] T056 [US3] Create `src/lib/db/queries/equipment.ts` with equipment profile CRUD operations
+- [X] T057 [US3] Create `src/app/api/user/equipment/route.ts` API routes for GET/PUT equipment profile
+- [X] T058 [US3] Create `src/app/(dashboard)/onboarding/page.tsx` with multi-step onboarding flow (fitness level, equipment, goals)
+- [X] T059 [US3] Create `src/app/(dashboard)/profile/page.tsx` with settings sections for profile, equipment, unit preferences
+- [X] T060 [US3] Create `src/app/api/user/profile/route.ts` API routes for GET/PATCH user profile (weight, unit preference, fitness level)
+- [X] T061 [US3] Add onboarding redirect logic for new users who haven't completed setup
+- [X] T062 [US3] Create `src/app/api/user/goals/route.ts` API routes for GET/PUT activity goals (daily/weekly)
 
 **Checkpoint**: User Story 3 complete - users can configure equipment and preferences
 
@@ -159,16 +159,16 @@
 
 ### Implementation for User Story 4
 
-- [ ] T063 [P] [US4] Create `src/lib/db/seed/exercises.ts` with 50+ exercises covering all muscle groups and equipment types
-- [ ] T064 [US4] Run seed script to populate exercises table: `pnpm db:seed`
-- [ ] T065 [P] [US4] Create `src/components/exercise/ExerciseCard.tsx` with exercise name, muscle tags, and equipment badge
-- [ ] T066 [P] [US4] Create `src/components/exercise/ExerciseFilters.tsx` with muscle group and equipment filter dropdowns
-- [ ] T067 [US4] Create `src/lib/db/queries/exercises.ts` with exercise queries (getExercises with filters, getExerciseById)
-- [ ] T068 [US4] Create `src/app/api/exercises/route.ts` API route for GET exercises with filtering
-- [ ] T069 [US4] Create `src/app/api/exercises/[id]/route.ts` API route for GET single exercise
-- [ ] T070 [US4] Create `src/app/(dashboard)/exercises/page.tsx` with exercise grid and filter bar
-- [ ] T071 [US4] Create `src/app/(dashboard)/exercises/[id]/page.tsx` with exercise detail (instructions, muscles, difficulty)
-- [ ] T072 [US4] Integrate user equipment filter to hide/mark unavailable exercises based on profile
+- [X] T063 [P] [US4] Create `src/lib/db/seed/exercises.ts` with 50+ exercises covering all muscle groups and equipment types
+- [X] T064 [US4] Run seed script to populate exercises table: `pnpm db:seed`
+- [X] T065 [P] [US4] Create `src/components/exercise/ExerciseCard.tsx` with exercise name, muscle tags, and equipment badge
+- [X] T066 [P] [US4] Create `src/components/exercise/ExerciseFilters.tsx` with muscle group and equipment filter dropdowns
+- [X] T067 [US4] Create `src/lib/db/queries/exercises.ts` with exercise queries (getExercises with filters, getExerciseById)
+- [X] T068 [US4] Create `src/app/api/exercises/route.ts` API route for GET exercises with filtering
+- [X] T069 [US4] Create `src/app/api/exercises/[id]/route.ts` API route for GET single exercise
+- [X] T070 [US4] Create `src/app/(dashboard)/exercises/page.tsx` with exercise grid and filter bar
+- [X] T071 [US4] Create `src/app/(dashboard)/exercises/[id]/page.tsx` with exercise detail (instructions, muscles, difficulty)
+- [X] T072 [US4] Integrate user equipment filter to hide/mark unavailable exercises based on profile
 
 **Checkpoint**: User Story 4 complete - users can browse and filter exercises
 
@@ -182,35 +182,35 @@
 
 ### AI Client Setup
 
-- [ ] T073 [P] [US5] Create `src/lib/ai/client.ts` with OpenAI SDK configured for LiteLLM endpoint
-- [ ] T074 [P] [US5] Create `src/lib/ai/prompts/workout-generation.ts` with prompt template for workout plan generation
+- [X] T073 [P] [US5] Create `src/lib/ai/client.ts` with OpenAI SDK configured for LiteLLM endpoint
+- [X] T074 [P] [US5] Create `src/lib/ai/prompts/workout-generation.ts` with prompt template for workout plan generation
 
 ### Workout Plan Implementation
 
-- [ ] T075 [US5] Create `src/lib/db/queries/plans.ts` with workout plan CRUD operations (createPlan, getPlans, getPlanById, deletePlan)
-- [ ] T076 [US5] Create `src/app/api/ai/generate/route.ts` API route for POST AI workout generation with rate limiting
-- [ ] T077 [P] [US5] Create `src/components/plan/GenerateForm.tsx` with goal selector, duration picker, and generate button
-- [ ] T078 [P] [US5] Create `src/components/plan/PlanCard.tsx` with plan name, goal, duration, and exercise count
-- [ ] T079 [US5] Create `src/app/(dashboard)/plans/generate/page.tsx` with generation form and result display
-- [ ] T080 [US5] Create `src/app/api/plans/route.ts` API routes for GET saved plans
-- [ ] T081 [US5] Create `src/app/api/plans/[id]/route.ts` API routes for GET/DELETE single plan
-- [ ] T082 [US5] Create `src/app/api/plans/[id]/save/route.ts` API route for POST save AI plan to library
-- [ ] T083 [US5] Create `src/app/(dashboard)/plans/page.tsx` with saved plans grid ("My Workouts" library)
-- [ ] T084 [US5] Create `src/app/(dashboard)/plans/[id]/page.tsx` with plan detail and "Start Workout" button
+- [X] T075 [US5] Create `src/lib/db/queries/plans.ts` with workout plan CRUD operations (createPlan, getPlans, getPlanById, deletePlan)
+- [X] T076 [US5] Create `src/app/api/ai/generate/route.ts` API route for POST AI workout generation with rate limiting
+- [X] T077 [P] [US5] Create `src/components/plan/GenerateForm.tsx` with goal selector, duration picker, and generate button
+- [X] T078 [P] [US5] Create `src/components/plan/PlanCard.tsx` with plan name, goal, duration, and exercise count
+- [X] T079 [US5] Create `src/app/(dashboard)/plans/generate/page.tsx` with generation form and result display
+- [X] T080 [US5] Create `src/app/api/plans/route.ts` API routes for GET saved plans
+- [X] T081 [US5] Create `src/app/api/plans/[id]/route.ts` API routes for GET/DELETE single plan
+- [X] T082 [US5] Create `src/app/api/plans/[id]/save/route.ts` API route for POST save AI plan to library (handled by POST /api/plans)
+- [X] T083 [US5] Create `src/app/(dashboard)/plans/page.tsx` with saved plans grid ("My Workouts" library)
+- [X] T084 [US5] Create `src/app/(dashboard)/plans/[id]/page.tsx` with plan detail and "Start Workout" button
 
 ### Guided Workout & Strength Logging
 
-- [ ] T085 [P] [US5] Create `src/components/plan/WorkoutGuide.tsx` with exercise-by-exercise navigation, timer, and rep counter
-- [ ] T086 [P] [US5] Create `src/components/workout/StrengthLogForm.tsx` with sets/reps/weight input for each exercise
-- [ ] T087 [US5] Create `src/app/(dashboard)/plans/[id]/start/page.tsx` with guided workout flow
-- [ ] T088 [US5] Create `src/app/api/workouts/strength/route.ts` API route for POST strength workout log
-- [ ] T089 [US5] Create `src/lib/db/queries/strength.ts` with strength workout operations
-- [ ] T090 [US5] Integrate strength workouts into workout history display
+- [X] T085 [P] [US5] Create `src/components/plan/WorkoutGuide.tsx` with exercise-by-exercise navigation, timer, and rep counter
+- [X] T086 [P] [US5] Create `src/components/workout/StrengthLogForm.tsx` with sets/reps/weight input for each exercise
+- [X] T087 [US5] Create `src/app/(dashboard)/plans/[id]/start/page.tsx` with guided workout flow
+- [X] T088 [US5] Create `src/app/api/workouts/strength/route.ts` API route for POST strength workout log
+- [X] T089 [US5] Create `src/lib/db/queries/strength.ts` with strength workout operations (already in workouts.ts)
+- [X] T090 [US5] Integrate strength workouts into workout history display (WorkoutCard already supports)
 
 ### Error Handling
 
-- [ ] T091 [US5] Add AI service error handling with fallback UI suggesting exercise library browse
-- [ ] T092 [US5] Add "Regenerate" button functionality with loading state
+- [X] T091 [US5] Add AI service error handling with fallback UI suggesting exercise library browse (implemented in generate page)
+- [X] T092 [US5] Add "Regenerate" button functionality with loading state (implemented in generate page)
 
 **Checkpoint**: User Story 5 complete - users can generate, save, start, and log AI workouts
 
@@ -224,20 +224,20 @@
 
 ### Dashboard Components
 
-- [ ] T093 [P] [US6] Create `src/components/workout/ActivityRing.tsx` with SVG circular progress and gradient stroke
-- [ ] T094 [P] [US6] Create `src/components/dashboard/StatsCard.tsx` with large number, label, and trend indicator
-- [ ] T095 [P] [US6] Create `src/components/dashboard/WeeklyChart.tsx` with simple bar/line chart for 4-week trends
-- [ ] T096 [P] [US6] Create `src/components/dashboard/GoalProgress.tsx` with activity rings for daily/weekly goals
-- [ ] T097 [US6] Create `src/hooks/useActivityGoals.ts` hook for calculating goal progress from workout data
+- [X] T093 [P] [US6] Create `src/components/workout/ActivityRing.tsx` with SVG circular progress and gradient stroke
+- [X] T094 [P] [US6] Create `src/components/dashboard/StatsCard.tsx` with large number, label, and trend indicator
+- [X] T095 [P] [US6] Create `src/components/dashboard/WeeklyChart.tsx` with simple bar/line chart for 4-week trends
+- [X] T096 [P] [US6] Create `src/components/dashboard/GoalProgress.tsx` with activity rings for daily/weekly goals
+- [X] T097 [US6] Create `src/hooks/useActivityGoals.ts` hook for calculating goal progress from workout data
 
 ### Dashboard API & Page
 
-- [ ] T098 [US6] Create `src/lib/db/queries/dashboard.ts` with aggregation queries (weekly stats, streak, trends)
-- [ ] T099 [US6] Create `src/app/api/dashboard/stats/route.ts` API route for GET dashboard statistics
-- [ ] T100 [US6] Create `src/app/api/dashboard/weekly/route.ts` API route for GET weekly breakdown by date
-- [ ] T101 [US6] Update `src/app/(dashboard)/page.tsx` with full dashboard: stats cards, activity rings, weekly chart
-- [ ] T102 [US6] Add empty state UI for users with no workouts (encouraging first workout prompt)
-- [ ] T103 [US6] Add week-by-week navigation in dashboard to view historical data
+- [X] T098 [US6] Create `src/lib/db/queries/dashboard.ts` with aggregation queries (weekly stats, streak, trends)
+- [X] T099 [US6] Create `src/app/api/dashboard/stats/route.ts` API route for GET dashboard statistics
+- [X] T100 [US6] Create `src/app/api/dashboard/weekly/route.ts` API route for GET weekly breakdown by date
+- [X] T101 [US6] Update `src/app/(dashboard)/page.tsx` with full dashboard: stats cards, activity rings, weekly chart
+- [X] T102 [US6] Add empty state UI for users with no workouts (encouraging first workout prompt)
+- [X] T103 [US6] Add week-by-week navigation in dashboard to view historical data
 
 **Checkpoint**: User Story 6 complete - users can view comprehensive progress dashboard
 

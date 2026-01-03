@@ -20,13 +20,18 @@ const isPublicRoute = createRouteMatcher([
   '/',
 ]);
 
+// Routes that bypass onboarding check
+const isOnboardingRoute = createRouteMatcher(['/onboarding(.*)']);
+
 export default clerkMiddleware(async (auth, req) => {
-  // Redirect authenticated users from public pages to dashboard
+  // Get user session
+  const session = await auth();
+
+  // Redirect authenticated users from public pages to home
   if (isPublicRoute(req)) {
-    const session = await auth();
     if (session.userId && req.nextUrl.pathname === '/') {
       const url = req.nextUrl.clone();
-      url.pathname = '/dashboard';
+      url.pathname = '/';
       return NextResponse.redirect(url);
     }
   }
@@ -34,6 +39,35 @@ export default clerkMiddleware(async (auth, req) => {
   // Protect routes that require authentication
   if (isProtectedRoute(req)) {
     await auth.protect();
+
+    // Check if user needs to complete onboarding
+    if (session.userId && !isOnboardingRoute(req)) {
+      // Fetch user to check onboarding status
+      try {
+        const userResponse = await fetch(
+          new URL('/api/user/profile', req.url),
+          {
+            headers: {
+              // Forward the cookie to authenticate
+              cookie: req.headers.get('cookie') ?? '',
+            },
+          }
+        );
+
+        if (userResponse.ok) {
+          const user = await userResponse.json();
+          if (!user.onboardingCompleted && req.nextUrl.pathname !== '/onboarding') {
+            // Redirect to onboarding
+            const url = req.nextUrl.clone();
+            url.pathname = '/onboarding';
+            return NextResponse.redirect(url);
+          }
+        }
+      } catch (error) {
+        // If we can't fetch the user, continue without redirecting
+        console.error('Error checking onboarding status:', error);
+      }
+    }
   }
 });
 

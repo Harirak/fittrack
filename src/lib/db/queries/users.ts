@@ -16,6 +16,7 @@ function toAppUser(dbUser: DbUser): User {
     weightKg: dbUser.weightKg ?? undefined,
     unitPreference: dbUser.unitPreference,
     fitnessLevel: dbUser.fitnessLevel,
+    onboardingCompleted: dbUser.onboardingCompleted ?? false,
     createdAt: dbUser.createdAt,
     updatedAt: dbUser.updatedAt,
   };
@@ -62,6 +63,7 @@ export async function updateUser(
     weightKg: number;
     unitPreference: 'metric' | 'imperial';
     fitnessLevel: 'beginner' | 'intermediate' | 'advanced';
+    onboardingCompleted: boolean;
   }>
 ): Promise<User | null> {
   const [user] = await db

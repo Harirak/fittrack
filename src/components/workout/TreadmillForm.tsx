@@ -11,9 +11,10 @@ export interface TreadmillFormProps {
   durationSeconds: number;
   onComplete: (data: { distanceKm: number; avgSpeedKmh: number; caloriesBurned: number }) => void;
   onCancel: () => void;
+  disabled?: boolean;
 }
 
-export function TreadmillForm({ durationSeconds, onComplete, onCancel }: TreadmillFormProps) {
+export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled }: TreadmillFormProps) {
   const [distanceKm, setDistanceKm] = useState('');
   const [userWeightKg, setUserWeightKg] = useState('70');
 
@@ -38,7 +39,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel }: Treadmi
     });
   };
 
-  const isFormValid = distanceKm && parseFloat(distanceKm) > 0;
+  const isFormValid = distanceKm && parseFloat(distanceKm) > 0 && !disabled;
 
   return (
     <Card className="border-gray-800 bg-gray-900/50 backdrop-blur-sm p-6">
@@ -60,6 +61,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel }: Treadmi
             className="bg-gray-800 border-gray-700 text-white placeholder:text-white/40"
             required
             autoFocus
+            disabled={disabled}
           />
         </div>
 
@@ -78,6 +80,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel }: Treadmi
             value={userWeightKg}
             onChange={(e) => setUserWeightKg(e.target.value)}
             className="bg-gray-800 border-gray-700 text-white placeholder:text-white/40"
+            disabled={disabled}
           />
           <p className="text-xs text-white/50">
             Used for more accurate calorie calculation
@@ -128,6 +131,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel }: Treadmi
             variant="outline"
             onClick={onCancel}
             className="flex-1 border-gray-700 bg-gray-800 text-white hover:bg-gray-700"
+            disabled={disabled}
           >
             Back
           </Button>
@@ -136,7 +140,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel }: Treadmi
             disabled={!isFormValid}
             className="flex-1 bg-gradient-to-r from-purple-600 to-violet-600 text-white hover:from-purple-700 hover:to-violet-700 disabled:opacity-50"
           >
-            Save Workout
+            {disabled ? 'Saving...' : 'Save Workout'}
           </Button>
         </div>
       </form>

@@ -11,6 +11,7 @@ export interface User {
   weightKg?: number;
   unitPreference: UnitPreference;
   fitnessLevel: FitnessLevel;
+  onboardingCompleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -189,6 +190,16 @@ export interface DashboardStats {
   totalDistance: number; // in km
   currentStreak: number; // days
   weeklyAvg: number; // workouts per week
+  thisWeek: {
+    duration: number;
+    distance: number;
+    workoutCount: number;
+  };
+  lastWeek: {
+    duration: number;
+    distance: number;
+    workoutCount: number;
+  };
 }
 
 export interface WeeklyData {
@@ -196,6 +207,21 @@ export interface WeeklyData {
   duration: number; // minutes
   distance: number; // km
   workoutCount: number;
+}
+
+export interface GoalProgressData {
+  durationMinutes: {
+    current: number;
+    goal: number;
+  };
+  distanceKm: {
+    current: number;
+    goal: number;
+  };
+  workoutCount: {
+    current: number;
+    goal: number;
+  };
 }
 
 // ============= Offline Sync Types =============
