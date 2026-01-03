@@ -249,26 +249,26 @@
 
 ### Performance & PWA
 
-- [ ] T104 [P] Run Lighthouse audit and address any PWA/Performance issues below score 90
-- [ ] T105 [P] Add loading.tsx skeleton components for all dashboard routes
-- [ ] T106 [P] Add error.tsx error boundary components with retry actions
-- [ ] T107 Verify offline workout logging end-to-end (airplane mode test)
-- [ ] T108 [P] Add optimistic UI updates for workout creation
+- [X] T104 [P] Run Lighthouse audit and address any PWA/Performance issues below score 90
+- [X] T105 [P] Add loading.tsx skeleton components for all dashboard routes
+- [X] T106 [P] Add error.tsx error boundary components with retry actions
+- [X] T107 Verify offline workout logging end-to-end (airplane mode test)
+- [X] T108 [P] Add optimistic UI updates for workout creation (already implemented)
 
 ### Validation & Security
 
-- [ ] T109 [P] Add Zod validation to all API routes using schemas from validations.ts
-- [ ] T110 [P] Add rate limiting to AI generation endpoint (10 requests/day per user)
-- [ ] T111 Verify Clerk auth check at data access layer (defense in depth)
+- [X] T109 [P] Add Zod validation to all API routes using schemas from validations.ts (already implemented)
+- [X] T110 [P] Add rate limiting to AI generation endpoint (10 requests/day per user) (already implemented)
+- [X] T111 Verify Clerk auth check at data access layer (defense in depth) (already implemented)
 
 ### Documentation & Cleanup
 
-- [ ] T112 [P] Create `README.md` with project overview, setup instructions, and architecture
-- [ ] T113 [P] Create `.env.example` with all required variables documented
-- [ ] T114 [P] Add inline code comments for complex logic (calorie calculation, offline sync)
-- [ ] T115 Run `pnpm lint` and fix all linting errors
-- [ ] T116 Run `pnpm type-check` and fix all TypeScript errors
-- [ ] T117 Run quickstart.md validation to verify development setup works
+- [X] T112 [P] Create `README.md` with project overview, setup instructions, and architecture
+- [X] T113 [P] Create `.env.example` with all required variables documented (already exists)
+- [X] T114 [P] Add inline code comments for complex logic (calorie calculation, offline sync) (already present)
+- [X] T115 Run `pnpm lint` and fix all linting errors
+- [X] T116 Run `pnpm type-check` and fix all TypeScript errors
+- [X] T117 Run quickstart.md validation to verify development setup works
 
 ---
 
