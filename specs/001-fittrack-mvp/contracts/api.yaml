@@ -1,0 +1,903 @@
+openapi: 3.1.0
+info:
+  title: FitTrack Pro MVP API
+  version: 1.0.0
+  description: REST API for FitTrack Pro fitness tracking application
+
+servers:
+  - url: /api
+    description: Next.js API Routes
+
+security:
+  - clerkAuth: []
+
+components:
+  securitySchemes:
+    clerkAuth:
+      type: http
+      scheme: bearer
+      description: Clerk JWT token
+
+  schemas:
+    # ============ Common ============
+    Error:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          default: 1
+        limit:
+          type: integer
+          default: 20
+        total:
+          type: integer
+        hasMore:
+          type: boolean
+
+    # ============ User & Profile ============
+    UserProfile:
+      type: object
+      required: [id, email, unitPreference, fitnessLevel]
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        weightKg:
+          type: number
+          nullable: true
+        unitPreference:
+          type: string
+          enum: [metric, imperial]
+        fitnessLevel:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        createdAt:
+          type: string
+          format: date-time
+
+    UpdateProfileInput:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        weightKg:
+          type: number
+          minimum: 20
+          maximum: 300
+        unitPreference:
+          type: string
+          enum: [metric, imperial]
+        fitnessLevel:
+          type: string
+          enum: [beginner, intermediate, advanced]
+
+    EquipmentProfile:
+      type: object
+      required: [dumbbells, barbells, kettlebells, bodyweight]
+      properties:
+        dumbbells:
+          type: boolean
+        barbells:
+          type: boolean
+        kettlebells:
+          type: boolean
+        bodyweight:
+          type: boolean
+          default: true
+
+    ActivityGoal:
+      type: object
+      required: [type, durationMinutes, distanceKm, workoutCount]
+      properties:
+        type:
+          type: string
+          enum: [daily, weekly]
+        durationMinutes:
+          type: integer
+          minimum: 1
+        distanceKm:
+          type: number
+          minimum: 0
+        workoutCount:
+          type: integer
+          minimum: 1
+
+    # ============ Workouts ============
+    Workout:
+      type: object
+      required: [id, userId, type, startedAt, durationSeconds]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        type:
+          type: string
+          enum: [treadmill, strength]
+        startedAt:
+          type: string
+          format: date-time
+        endedAt:
+          type: string
+          format: date-time
+          nullable: true
+        durationSeconds:
+          type: integer
+        notes:
+          type: string
+          nullable: true
+        synced:
+          type: boolean
+        localId:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    TreadmillWorkout:
+      allOf:
+        - $ref: '#/components/schemas/Workout'
+        - type: object
+          required: [distanceKm, avgSpeedKmh]
+          properties:
+            distanceKm:
+              type: number
+            avgSpeedKmh:
+              type: number
+            caloriesBurned:
+              type: integer
+              nullable: true
+
+    CreateTreadmillWorkoutInput:
+      type: object
+      required: [startedAt, durationSeconds, distanceKm]
+      properties:
+        startedAt:
+          type: string
+          format: date-time
+        endedAt:
+          type: string
+          format: date-time
+        durationSeconds:
+          type: integer
+          minimum: 1
+          maximum: 86400
+        distanceKm:
+          type: number
+          minimum: 0.01
+          maximum: 100
+        notes:
+          type: string
+          maxLength: 500
+        localId:
+          type: string
+          description: Client-generated ID for offline sync
+
+    StrengthExerciseLog:
+      type: object
+      required: [exerciseId, exerciseName, sets]
+      properties:
+        exerciseId:
+          type: string
+        exerciseName:
+          type: string
+        sets:
+          type: array
+          items:
+            type: object
+            required: [reps, completed]
+            properties:
+              reps:
+                type: integer
+                minimum: 1
+              weightKg:
+                type: number
+                minimum: 0
+              completed:
+                type: boolean
+
+    StrengthWorkout:
+      allOf:
+        - $ref: '#/components/schemas/Workout'
+        - type: object
+          required: [exercises]
+          properties:
+            planId:
+              type: string
+              nullable: true
+            exercises:
+              type: array
+              items:
+                $ref: '#/components/schemas/StrengthExerciseLog'
+
+    CreateStrengthWorkoutInput:
+      type: object
+      required: [startedAt, durationSeconds, exercises]
+      properties:
+        startedAt:
+          type: string
+          format: date-time
+        endedAt:
+          type: string
+          format: date-time
+        durationSeconds:
+          type: integer
+          minimum: 1
+        planId:
+          type: string
+          nullable: true
+        exercises:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StrengthExerciseLog'
+        notes:
+          type: string
+          maxLength: 500
+        localId:
+          type: string
+
+    WorkoutSummary:
+      type: object
+      properties:
+        totalWorkouts:
+          type: integer
+        totalDurationMinutes:
+          type: integer
+        totalDistanceKm:
+          type: number
+        totalCaloriesBurned:
+          type: integer
+        period:
+          type: string
+          enum: [week, month, all]
+
+    # ============ Exercises ============
+    Exercise:
+      type: object
+      required: [id, name, description, muscleGroups, equipment, difficulty, instructions]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        muscleGroups:
+          type: array
+          items:
+            type: string
+            enum: [chest, back, shoulders, biceps, triceps, core, quadriceps, hamstrings, glutes, calves]
+        equipment:
+          type: string
+          enum: [bodyweight, dumbbells, barbells, kettlebells]
+        difficulty:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        instructions:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+
+    # ============ Workout Plans ============
+    PlanExercise:
+      type: object
+      required: [exerciseId, exerciseName, sets, reps, restSeconds]
+      properties:
+        exerciseId:
+          type: string
+        exerciseName:
+          type: string
+        sets:
+          type: integer
+          minimum: 1
+        reps:
+          oneOf:
+            - type: integer
+            - type: string
+          description: Number like 12, or range like "8-12", or duration like "30 seconds"
+        restSeconds:
+          type: integer
+          minimum: 0
+        notes:
+          type: string
+
+    WorkoutPlan:
+      type: object
+      required: [id, userId, name, goal, durationMinutes, exercises, isAiGenerated]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        goal:
+          type: string
+          enum: [build_muscle, lose_weight, general_fitness]
+        durationMinutes:
+          type: integer
+        exercises:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanExercise'
+        isAiGenerated:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    GenerateWorkoutPlanInput:
+      type: object
+      required: [goal, durationMinutes]
+      properties:
+        goal:
+          type: string
+          enum: [build_muscle, lose_weight, general_fitness]
+        durationMinutes:
+          type: integer
+          enum: [15, 30, 45, 60]
+
+    SaveWorkoutPlanInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+
+    # ============ Dashboard ============
+    DashboardStats:
+      type: object
+      properties:
+        weeklyWorkouts:
+          type: integer
+        weeklyDurationMinutes:
+          type: integer
+        weeklyDistanceKm:
+          type: number
+        weeklyCalories:
+          type: integer
+        streakDays:
+          type: integer
+        dailyGoalProgress:
+          type: object
+          properties:
+            durationPercent:
+              type: number
+            distancePercent:
+              type: number
+            workoutsPercent:
+              type: number
+        weeklyGoalProgress:
+          type: object
+          properties:
+            durationPercent:
+              type: number
+            distancePercent:
+              type: number
+            workoutsPercent:
+              type: number
+
+paths:
+  # ============ User Profile ============
+  /user/profile:
+    get:
+      summary: Get current user profile
+      tags: [User]
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '401':
+          description: Unauthorized
+    
+    patch:
+      summary: Update user profile
+      tags: [User]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileInput'
+      responses:
+        '200':
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+
+  /user/equipment:
+    get:
+      summary: Get user equipment profile
+      tags: [User]
+      responses:
+        '200':
+          description: Equipment profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentProfile'
+    
+    put:
+      summary: Update equipment profile
+      tags: [User]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentProfile'
+      responses:
+        '200':
+          description: Updated equipment profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentProfile'
+
+  /user/goals:
+    get:
+      summary: Get activity goals
+      tags: [User]
+      responses:
+        '200':
+          description: Activity goals (daily and weekly)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  daily:
+                    $ref: '#/components/schemas/ActivityGoal'
+                  weekly:
+                    $ref: '#/components/schemas/ActivityGoal'
+    
+    put:
+      summary: Update activity goals
+      tags: [User]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                daily:
+                  $ref: '#/components/schemas/ActivityGoal'
+                weekly:
+                  $ref: '#/components/schemas/ActivityGoal'
+      responses:
+        '200':
+          description: Updated goals
+
+  # ============ Workouts ============
+  /workouts:
+    get:
+      summary: List user workouts
+      tags: [Workouts]
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [treadmill, strength]
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: List of workouts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/TreadmillWorkout'
+                        - $ref: '#/components/schemas/StrengthWorkout'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+  /workouts/treadmill:
+    post:
+      summary: Create treadmill workout
+      tags: [Workouts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTreadmillWorkoutInput'
+      responses:
+        '201':
+          description: Created workout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TreadmillWorkout'
+        '409':
+          description: Conflict - localId already exists
+
+  /workouts/strength:
+    post:
+      summary: Create strength workout
+      tags: [Workouts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStrengthWorkoutInput'
+      responses:
+        '201':
+          description: Created workout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrengthWorkout'
+
+  /workouts/{id}:
+    get:
+      summary: Get workout by ID
+      tags: [Workouts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workout details
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/TreadmillWorkout'
+                  - $ref: '#/components/schemas/StrengthWorkout'
+        '404':
+          description: Workout not found
+
+    delete:
+      summary: Delete workout
+      tags: [Workouts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+        '404':
+          description: Not found
+
+  /workouts/summary:
+    get:
+      summary: Get workout summary statistics
+      tags: [Workouts]
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [week, month, all]
+            default: week
+      responses:
+        '200':
+          description: Summary statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkoutSummary'
+
+  /workouts/sync:
+    post:
+      summary: Sync offline workouts
+      tags: [Workouts]
+      description: Batch sync multiple offline workouts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workouts:
+                  type: array
+                  items:
+                    oneOf:
+                      - $ref: '#/components/schemas/CreateTreadmillWorkoutInput'
+                      - $ref: '#/components/schemas/CreateStrengthWorkoutInput'
+      responses:
+        '200':
+          description: Sync results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  synced:
+                    type: integer
+                  failed:
+                    type: integer
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        localId:
+                          type: string
+                        error:
+                          type: string
+
+  # ============ Exercises ============
+  /exercises:
+    get:
+      summary: List exercises
+      tags: [Exercises]
+      parameters:
+        - name: equipment
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [bodyweight, dumbbells, barbells, kettlebells]
+          style: form
+          explode: true
+        - name: muscleGroup
+          in: query
+          schema:
+            type: string
+            enum: [chest, back, shoulders, biceps, triceps, core, quadriceps, hamstrings, glutes, calves]
+        - name: difficulty
+          in: query
+          schema:
+            type: string
+            enum: [beginner, intermediate, advanced]
+        - name: userEquipmentOnly
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Filter by user's equipment profile
+      responses:
+        '200':
+          description: List of exercises
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Exercise'
+
+  /exercises/{id}:
+    get:
+      summary: Get exercise by ID
+      tags: [Exercises]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Exercise details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exercise'
+        '404':
+          description: Not found
+
+  # ============ Workout Plans ============
+  /plans:
+    get:
+      summary: List saved workout plans
+      tags: [Plans]
+      responses:
+        '200':
+          description: List of saved plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkoutPlan'
+
+  /plans/{id}:
+    get:
+      summary: Get plan by ID
+      tags: [Plans]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Plan details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkoutPlan'
+        '404':
+          description: Not found
+
+    delete:
+      summary: Delete saved plan
+      tags: [Plans]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+
+  /plans/{id}/save:
+    post:
+      summary: Save AI-generated plan to library
+      tags: [Plans]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Temporary plan ID from generation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveWorkoutPlanInput'
+      responses:
+        '201':
+          description: Saved plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkoutPlan'
+
+  # ============ AI Generation ============
+  /ai/generate:
+    post:
+      summary: Generate AI workout plan
+      tags: [AI]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateWorkoutPlanInput'
+      responses:
+        '200':
+          description: Generated workout plan (temporary, not saved)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkoutPlan'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  retryAfter:
+                    type: integer
+                    description: Seconds until rate limit resets
+        '503':
+          description: AI service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # ============ Dashboard ============
+  /dashboard/stats:
+    get:
+      summary: Get dashboard statistics
+      tags: [Dashboard]
+      responses:
+        '200':
+          description: Dashboard stats with goal progress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardStats'
+
+  /dashboard/weekly:
+    get:
+      summary: Get weekly workout breakdown
+      tags: [Dashboard]
+      parameters:
+        - name: week
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Start of week (ISO date). Defaults to current week.
+      responses:
+        '200':
+          description: Daily breakdown for the week
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  weekStart:
+                    type: string
+                    format: date
+                  days:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                        workouts:
+                          type: integer
+                        durationMinutes:
+                          type: integer
+                        distanceKm:
+                          type: number
+                        completed:
+                          type: boolean
+                          description: Met daily goal
