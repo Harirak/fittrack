@@ -106,17 +106,17 @@
 
 ### Implementation for User Story 2
 
-- [ ] T039 [P] [US2] Create `src/hooks/useWorkoutTimer.ts` with start, pause, resume, stop functionality and elapsed time state
-- [ ] T040 [P] [US2] Create `src/components/workout/WorkoutTimer.tsx` component with large timer display and control buttons
-- [ ] T041 [P] [US2] Create `src/components/workout/TreadmillForm.tsx` with distance input, speed display, and calorie estimate
-- [ ] T042 [US2] Create `src/lib/db/queries/workouts.ts` with workout CRUD operations (createTreadmillWorkout, getWorkouts, getWorkoutById)
-- [ ] T043 [US2] Create `src/app/api/workouts/treadmill/route.ts` API route for POST (create treadmill workout)
-- [ ] T044 [US2] Create `src/app/api/workouts/route.ts` API route for GET (list workouts with pagination and filters)
-- [ ] T045 [US2] Create `src/app/(dashboard)/workouts/new/page.tsx` with workout type selection and treadmill workout flow
-- [ ] T046 [P] [US2] Create `src/components/workout/WorkoutCard.tsx` to display workout summary in lists
-- [ ] T047 [US2] Create `src/app/(dashboard)/workouts/page.tsx` with workout history list (reverse chronological)
-- [ ] T048 [US2] Create `src/app/(dashboard)/workouts/[id]/page.tsx` with workout detail view
-- [ ] T049 [US2] Create `src/app/(dashboard)/workouts/manual/page.tsx` for manual workout entry with date picker
+- [X] T039 [P] [US2] Create `src/hooks/useWorkoutTimer.ts` with start, pause, resume, stop functionality and elapsed time state
+- [X] T040 [P] [US2] Create `src/components/workout/WorkoutTimer.tsx` component with large timer display and control buttons
+- [X] T041 [P] [US2] Create `src/components/workout/TreadmillForm.tsx` with distance input, speed display, and calorie estimate
+- [X] T042 [US2] Create `src/lib/db/queries/workouts.ts` with workout CRUD operations (createTreadmillWorkout, getWorkouts, getWorkoutById)
+- [X] T043 [US2] Create `src/app/api/workouts/treadmill/route.ts` API route for POST (create treadmill workout)
+- [X] T044 [US2] Create `src/app/api/workouts/route.ts` API route for GET (list workouts with pagination and filters)
+- [X] T045 [US2] Create `src/app/(dashboard)/workouts/new/page.tsx` with workout type selection and treadmill workout flow
+- [X] T046 [P] [US2] Create `src/components/workout/WorkoutCard.tsx` to display workout summary in lists
+- [X] T047 [US2] Create `src/app/(dashboard)/workouts/page.tsx` with workout history list (reverse chronological)
+- [X] T048 [US2] Create `src/app/(dashboard)/workouts/[id]/page.tsx` with workout detail view
+- [X] T049 [US2] Create `src/app/(dashboard)/workouts/manual/page.tsx` for manual workout entry with date picker
 
 ### Offline Support for User Story 2
 

@@ -9,8 +9,10 @@ export const optionalStringSchema = z.string().max(500, 'Notes cannot exceed 500
 // ============= Workout Validations =============
 export const treadmillWorkoutSchema = z.object({
   distanceKm: z.number().min(0.01, 'Distance must be at least 0.01 km').max(100, 'Distance cannot exceed 100 km'),
+  avgSpeedKmh: z.number().positive('Speed must be positive'),
   durationSeconds: z.number().min(1, 'Duration must be at least 1 second').max(86400, 'Duration cannot exceed 24 hours'),
   startedAt: z.string().datetime().optional(),
+  caloriesBurned: z.number().optional(),
   notes: optionalStringSchema,
 });
 
