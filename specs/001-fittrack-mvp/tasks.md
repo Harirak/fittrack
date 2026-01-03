@@ -43,8 +43,8 @@
 - [X] T011 Create `src/lib/db/index.ts` with Drizzle client singleton using Neon serverless driver
 - [X] T012 Create `src/lib/db/schema.ts` with all database tables: users, equipment_profiles, workouts, treadmill_data, strength_workout_data, exercises, workout_plans, activity_goals (per data-model.md)
 - [X] T013 [P] Create `drizzle.config.ts` with Neon connection configuration
-- [ ] T014 Run `npx drizzle-kit generate` to generate initial migrations
-- [ ] T015 Run `npx drizzle-kit push` to apply schema to Neon database
+- [X] T014 Run `npx drizzle-kit generate` to generate initial migrations
+- [X] T015 Run `npx drizzle-kit push` to apply schema to Neon database
 
 ### Authentication Infrastructure
 
@@ -90,8 +90,8 @@
 - [X] T033 [US1] Create user sync webhook handler `src/app/api/webhooks/clerk/route.ts` to sync Clerk users to database
 - [X] T034 [US1] Create `src/lib/db/queries/users.ts` with user CRUD operations (createUser, getUser, updateUser)
 - [X] T035 [US1] Create welcome/landing page `src/app/page.tsx` with hero section and sign-up CTA for unauthenticated users
-- [ ] T036 [US1] Implement redirect logic in middleware to send authenticated users to dashboard
-- [ ] T037 [US1] Add dark theme styling to Clerk components via `appearance` prop in ClerkProvider
+- [X] T036 [US1] Implement redirect logic in middleware to send authenticated users to dashboard
+- [X] T037 [US1] Add dark theme styling to Clerk components via `appearance` prop in ClerkProvider
 - [X] T038 [US1] Create `src/app/(dashboard)/page.tsx` with basic dashboard shell showing user greeting
 
 **Checkpoint**: User Story 1 complete - users can register, login, logout, and access protected dashboard

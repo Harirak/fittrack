@@ -1,5 +1,6 @@
 // Clerk authentication middleware for FitTrack Pro MVP
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
 // Define protected routes (require authentication)
 const isProtectedRoute = createRouteMatcher([
@@ -20,6 +21,15 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware((auth, req) => {
+  // Redirect authenticated users from public pages to dashboard
+  if (isPublicRoute(req)) {
+    if (auth().userId && req.nextUrl.pathname === '/') {
+      const url = req.nextUrl.clone();
+      url.pathname = '/dashboard';
+      return NextResponse.redirect(url);
+    }
+  }
+
   // Protect routes that require authentication
   if (isProtectedRoute(req)) {
     auth.protect();
