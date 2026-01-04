@@ -6,25 +6,26 @@ import { ArrowLeft, Target, Dumbbell, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import type { Exercise, MuscleGroup } from '@/types';
 
 const muscleGroupColors: Record<MuscleGroup, string> = {
-  chest: 'bg-red-500/20 text-red-300 border-red-500/30',
-  back: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-  shoulders: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-  biceps: 'bg-pink-500/20 text-pink-300 border-pink-500/30',
-  triceps: 'bg-orange-500/20 text-orange-300 border-orange-500/30',
-  core: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  quadriceps: 'bg-green-500/20 text-green-300 border-green-500/30',
-  hamstrings: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
-  glutes: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
-  calves: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
+  chest: 'bg-red-100 text-red-700 border-red-300',
+  back: 'bg-blue-100 text-blue-700 border-blue-300',
+  shoulders: 'bg-purple-100 text-purple-700 border-purple-300',
+  biceps: 'bg-pink-100 text-pink-700 border-pink-300',
+  triceps: 'bg-orange-100 text-orange-700 border-orange-300',
+  core: 'bg-yellow-100 text-yellow-700 border-yellow-300',
+  quadriceps: 'bg-green-100 text-green-700 border-green-300',
+  hamstrings: 'bg-teal-100 text-teal-700 border-teal-300',
+  glutes: 'bg-cyan-100 text-cyan-700 border-cyan-300',
+  calves: 'bg-indigo-100 text-indigo-700 border-indigo-300',
 };
 
 const difficultyColors = {
-  beginner: 'bg-green-500/20 text-green-300 border-green-500/30',
-  intermediate: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  advanced: 'bg-red-500/20 text-red-300 border-red-500/30',
+  beginner: 'bg-green-100 text-green-700 border-green-300',
+  intermediate: 'bg-amber-100 text-amber-700 border-amber-300',
+  advanced: 'bg-red-100 text-red-700 border-red-300',
 };
 
 const equipmentLabels = {
@@ -72,7 +73,7 @@ export default function ExerciseDetailPage() {
     return (
       <div className="container mx-auto px-4 py-6 max-w-4xl">
         <div className="flex items-center justify-center h-64">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
       </div>
     );
@@ -84,14 +85,14 @@ export default function ExerciseDetailPage() {
         <Button
           variant="ghost"
           onClick={() => router.back()}
-          className="mb-4 text-gray-400 hover:text-white"
+          className="mb-4 text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
-        <Card className="bg-gray-900 border-gray-800">
+        <Card className="bg-card border-border">
           <CardContent className="p-12 text-center">
-            <p className="text-gray-400 text-lg">{error || 'Exercise not found'}</p>
+            <p className="text-muted-foreground text-lg">{error || 'Exercise not found'}</p>
           </CardContent>
         </Card>
       </div>
@@ -104,7 +105,7 @@ export default function ExerciseDetailPage() {
       <Button
         variant="ghost"
         onClick={() => router.back()}
-        className="mb-4 text-gray-400 hover:text-white"
+        className="mb-4 text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back to Exercises
@@ -112,12 +113,12 @@ export default function ExerciseDetailPage() {
 
       {/* Exercise Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-white mb-2">{exercise.name}</h1>
-        <p className="text-gray-400 text-lg">{exercise.description}</p>
+        <h1 className="text-3xl font-bold text-foreground mb-2">{exercise.name}</h1>
+        <p className="text-muted-foreground text-lg">{exercise.description}</p>
       </div>
 
       {/* Exercise Details Card */}
-      <Card className="bg-gray-900 border-gray-800 mb-6">
+      <Card className="bg-card border-border mb-6">
         <CardContent className="p-6">
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-6">
@@ -126,12 +127,12 @@ export default function ExerciseDetailPage() {
               <Badge
                 key={muscle}
                 variant="outline"
-                className="text-sm flex items-center gap-1"
+                className={cn(
+                  "text-sm flex items-center gap-1",
+                  muscleGroupColors[muscle as MuscleGroup]
+                )}
               >
                 <Target className="w-3 h-3" />
-                {muscleGroupColors[muscle as MuscleGroup]
-                  ? muscleGroupColors[muscle as MuscleGroup].split(' ')[0]
-                  : ''}
                 {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
               </Badge>
             ))}
@@ -139,7 +140,7 @@ export default function ExerciseDetailPage() {
             {/* Equipment */}
             <Badge
               variant="outline"
-              className="text-sm flex items-center gap-1 bg-gray-500/20 text-gray-300 border-gray-500/30"
+              className="text-sm flex items-center gap-1 bg-zinc-100 text-zinc-900 border-zinc-300 font-medium"
             >
               <Dumbbell className="w-3 h-3" />
               {equipmentLabels[exercise.equipment]}
@@ -148,9 +149,10 @@ export default function ExerciseDetailPage() {
             {/* Difficulty */}
             <Badge
               variant="outline"
-              className={`text-sm flex items-center gap-1 ${
-                difficultyColors[exercise.difficulty].split(' ')[0]
-              }`}
+              className={cn(
+                "text-sm flex items-center gap-1",
+                difficultyColors[exercise.difficulty]
+              )}
             >
               <TrendingUp className="w-3 h-3" />
               {exercise.difficulty.charAt(0).toUpperCase() + exercise.difficulty.slice(1)}
@@ -159,9 +161,9 @@ export default function ExerciseDetailPage() {
 
           {/* Instructions */}
           <div>
-            <h2 className="text-xl font-semibold text-white mb-4">Instructions</h2>
-            <div className="bg-gray-800 rounded-lg p-4">
-              <div className="text-gray-300 whitespace-pre-line leading-relaxed">
+            <h2 className="text-xl font-semibold text-foreground mb-4">Instructions</h2>
+            <div className="bg-muted rounded-lg p-4">
+              <div className="text-foreground whitespace-pre-line leading-relaxed">
                 {exercise.instructions}
               </div>
             </div>
@@ -170,18 +172,20 @@ export default function ExerciseDetailPage() {
       </Card>
 
       {/* Muscle Groups Section */}
-      <Card className="bg-gray-900 border-gray-800">
+      <Card className="bg-card border-border">
         <CardContent className="p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Target Muscles</h2>
+          <h2 className="text-xl font-semibold text-foreground mb-4">Target Muscles</h2>
           <div className="flex flex-wrap gap-2">
             {exercise.muscleGroups.map((muscle) => (
               <Badge
                 key={muscle}
                 variant="outline"
-                className={`text-base py-2 px-4 ${
-                  muscleGroupColors[muscle as MuscleGroup] || ''
-                }`}
+                className={cn(
+                  'text-base py-2 px-4 flex items-center gap-2',
+                  muscleGroupColors[muscle as MuscleGroup]
+                )}
               >
+                <Target className="w-4 h-4" />
                 {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
               </Badge>
             ))}

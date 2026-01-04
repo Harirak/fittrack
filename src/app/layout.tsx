@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
@@ -14,12 +14,15 @@ export const metadata: Metadata = {
   title: "FitTrack Pro - Fitness Tracking PWA",
   description: "Track your workouts, generate AI-powered fitness plans, and achieve your goals with FitTrack Pro.",
   manifest: "/manifest.json",
-  themeColor: "#667eea",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "FitTrack Pro",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#F6F6F6", // Fresh Lime (Whitesmoke Background)
 };
 
 export default function RootLayout({
@@ -31,25 +34,19 @@ export default function RootLayout({
     <ClerkProvider
       appearance={{
         variables: {
-          colorPrimary: '#667eea',
-          colorBackground: '#0a0a0a',
-          colorInputBackground: '#1a1a1a',
-          colorInputText: '#ffffff',
+          colorPrimary: '#22C55E', // Forest Green
         },
         elements: {
-          card: 'bg-gray-900/50 backdrop-blur-sm border-gray-800',
-          navbar: 'bg-gray-900/50 backdrop-blur-sm border-gray-800',
-          navbarButton: 'bg-gray-800 hover:bg-gray-700',
-          primaryButton: 'bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700',
-          secondaryButton: 'bg-gray-800 hover:bg-gray-700',
-          socialButtonsBlockButton: 'bg-gray-800 hover:bg-gray-700 border-gray-700',
-          formFieldInput: 'bg-gray-800 border-gray-700',
-          footer: 'bg-gray-900/50 backdrop-blur-sm',
+          card: 'bg-white shadow-xl border-gray-100 rounded-[20px]',
+          navbar: 'bg-white/80 backdrop-blur-sm border-gray-100',
+          navbarButton: 'hover:bg-gray-100',
+          primaryButton: 'bg-[#22C55E] text-white hover:bg-[#16a34a] shadow-sm', // Use darker green for hover
+          secondaryButton: 'bg-[#F6F6F6] hover:bg-gray-200 text-black',
         },
       }}
     >
-      <html lang="en" className="dark">
-        <body className={`${inter.variable} font-sans antialiased`}>
+      <html lang="en">
+        <body className={`${inter.variable} font-sans antialiased text-foreground bg-background`}>
           {children}
           <Toaster />
           <ServiceWorkerRegistration />

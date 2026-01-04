@@ -31,7 +31,7 @@ export default clerkMiddleware(async (auth, req) => {
   if (isPublicRoute(req)) {
     if (session.userId && req.nextUrl.pathname === '/') {
       const url = req.nextUrl.clone();
-      url.pathname = '/';
+      url.pathname = '/dashboard';
       return NextResponse.redirect(url);
     }
   }

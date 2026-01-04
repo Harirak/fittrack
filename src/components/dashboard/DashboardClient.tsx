@@ -73,7 +73,7 @@ export function DashboardClient({ initialHasWorkouts }: DashboardClientProps) {
   }
 
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6 p-4 md:p-6 lg:p-8">
       {/* Welcome Header */}
       <div className="space-y-2">
         <h1 className="text-2xl font-bold text-foreground">
@@ -90,7 +90,7 @@ export function DashboardClient({ initialHasWorkouts }: DashboardClientProps) {
           <Button
             asChild
             size="lg"
-            className="h-auto bg-gradient-to-r from-purple-500 to-violet-600 py-6 text-lg"
+            className="h-auto bg-primary py-6 text-lg text-primary-foreground hover:bg-primary/90 shadow-md"
           >
             <a href="/workouts/new" className="flex items-center justify-center gap-2">
               <span className="text-2xl">💪</span>
@@ -100,8 +100,8 @@ export function DashboardClient({ initialHasWorkouts }: DashboardClientProps) {
         </div>
       )}
 
-      {/* Stats Cards */}
-      <div className="grid gap-3">
+      {/* Stats Cards - Responsive Grid */}
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {stats && (
           <>
             <StatsCard
@@ -115,7 +115,7 @@ export function DashboardClient({ initialHasWorkouts }: DashboardClientProps) {
               value={stats.totalDuration}
               unit="min"
               trend={durationTrend !== null ? { value: durationTrend, period: 'vs last week' } : undefined}
-              icon={<Timer className="h-5 w-5 text-purple-500" />}
+              icon={<Timer className="h-5 w-5 text-primary" />}
             />
             <StatsCard
               label="Total Distance"
@@ -182,8 +182,8 @@ export function DashboardClient({ initialHasWorkouts }: DashboardClientProps) {
         )}
       </div>
 
-      {/* Quick Links */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Quick Links - Responsive */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Button
           asChild
           variant="outline"
@@ -216,7 +216,7 @@ function DashboardSkeleton() {
         <div className="h-7 w-32 animate-pulse rounded bg-muted" />
         <div className="h-5 w-48 animate-pulse rounded bg-muted" />
       </div>
-      <div className="grid gap-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[1, 2, 3, 4].map(i => (
           <div key={i} className="h-20 animate-pulse rounded-lg bg-muted" />
         ))}

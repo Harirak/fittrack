@@ -88,8 +88,8 @@ export function WeeklyChart({
               <div
                 className={cn(
                   'w-full rounded-t-sm transition-all duration-300',
-                  'bg-gradient-to-t from-purple-600 to-violet-500',
-                  isToday && 'from-cyan-600 to-cyan-500'
+                  'bg-primary',
+                  isToday && 'opacity-80'
                 )}
                 style={{ height: `${Math.max(heightPercent, 4)}%` }}
                 title={`${formatDate(point.date)}: ${value} ${getMetricUnit()}`}
@@ -151,8 +151,8 @@ function LineChart({ data, metric, height, className }: LineChartProps) {
       >
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+            <stop offset="0%" stopColor="#A8D922" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#A8D922" stopOpacity="0" />
           </linearGradient>
         </defs>
 
@@ -163,7 +163,7 @@ function LineChart({ data, metric, height, className }: LineChartProps) {
         <path
           d={pathD}
           fill="none"
-          stroke="url(#lineGradient)"
+          stroke="#A8D922"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -177,8 +177,10 @@ function LineChart({ data, metric, height, className }: LineChartProps) {
               key={index}
               cx={point.x}
               cy={point.y}
-              r={isToday ? '2' : '1'}
-              fill={isToday ? '#06b6d4' : '#8b5cf6'}
+              r={isToday ? '3' : '2'}
+              fill={isToday ? '#E5F880' : '#A8D922'}
+              stroke="#FFFFFF"
+              strokeWidth="1"
             />
           );
         })}
@@ -239,15 +241,15 @@ export function MultiMetricChart({ data, className, height = 180 }: MultiMetricC
                 {/* Duration bar */}
                 <div
                   className={cn(
-                    'w-full rounded-t-sm bg-gradient-to-t from-purple-600 to-violet-500 transition-all duration-300',
-                    isToday && 'from-cyan-600 to-cyan-500'
+                    'w-full rounded-t-sm bg-[#A8D922] transition-all duration-300',
+                    isToday && 'opacity-80'
                   )}
                   style={{ height: `${durationHeight * 0.45}%` }}
                   title={`${point.duration} min`}
                 />
-                {/* Distance bar */}
+                {/* Distance bar - use darker lime/green */}
                 <div
-                  className="w-full rounded-t-sm bg-gradient-to-t from-green-600 to-emerald-500 transition-all duration-300"
+                  className="w-full rounded-t-sm bg-[#84cc16] transition-all duration-300"
                   style={{ height: `${distanceHeight * 0.45}%` }}
                   title={`${point.distance} km`}
                 />
@@ -260,11 +262,11 @@ export function MultiMetricChart({ data, className, height = 180 }: MultiMetricC
       {/* Legend */}
       <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
         <div className="flex items-center gap-1">
-          <div className="h-2 w-2 rounded bg-gradient-to-r from-purple-600 to-violet-500" />
+          <div className="h-2 w-2 rounded bg-[#A8D922]" />
           <span>Duration</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="h-2 w-2 rounded bg-gradient-to-r from-green-600 to-emerald-500" />
+          <div className="h-2 w-2 rounded bg-[#84cc16]" />
           <span>Distance</span>
         </div>
       </div>

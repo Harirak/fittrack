@@ -1,7 +1,7 @@
 // API routes for user profile management
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
-import { getUser, updateUser } from '@/lib/db/queries/users';
+import { auth, currentUser } from '@clerk/nextjs/server';
+import { getUser, updateUser, createUser } from '@/lib/db/queries/users';
 import { z } from 'zod';
 
 // Validation schema for profile update
@@ -12,6 +12,37 @@ const profileUpdateSchema = z.object({
   fitnessLevel: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
   onboardingCompleted: z.boolean().optional(),
 });
+
+/**
+ * Helper to ensure user exists in DB by syncing from Clerk if needed
+ */
+async function ensureUserExists(userId: string) {
+  let user = await getUser(userId);
+
+  if (!user) {
+    // User exists in Clerk but not in DB -> Sync them
+    // This is "Just-In-Time" provisioning
+    try {
+      const clerkUser = await currentUser();
+
+      if (clerkUser && clerkUser.id === userId) {
+        const email = clerkUser.emailAddresses[0]?.emailAddress;
+        if (email) {
+          console.log(`[JIT] Creating missing user ${userId} (${email}) from Clerk data`);
+          user = await createUser({
+            id: userId,
+            email: email,
+            name: `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || undefined,
+          });
+        }
+      }
+    } catch (error) {
+      console.error('[JIT] Failed to sync user from Clerk:', error);
+    }
+  }
+
+  return user;
+}
 
 /**
  * GET /api/user/profile
@@ -28,7 +59,7 @@ export async function GET() {
       );
     }
 
-    const user = await getUser(userId);
+    const user = await ensureUserExists(userId);
 
     if (!user) {
       return NextResponse.json(
@@ -61,6 +92,11 @@ export async function PATCH(request: NextRequest) {
         { status: 401 }
       );
     }
+
+    // Ensure user exists before trying to update
+    // This prevents foreign key violations in related tables if we tried to insert child records first
+    // and also handles the 404 case for the update itself
+    await ensureUserExists(userId);
 
     const body = await request.json();
 

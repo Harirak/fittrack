@@ -1,21 +1,20 @@
 <!--
   Sync Impact Report
   ===================
-  Version change: 1.0.0 → 1.1.0
+  Version change: 1.2.0 → 1.3.0
   Modified principles:
-    - II. Dark Glassmorphism Design System → II. Dark Gradient Design System (updated colors and styling to match reference)
+    - II. Fresh Lime Design System: Added new Forest Green accent color.
   Modified sections:
-    - Technology Stack: Changed Vanilla CSS → shadcn/ui + Tailwind CSS
-    - Design System: Updated to match template1.png reference exactly
+    - Color Palette: Added `#495F41` (Forest Green).
+    - Tailwind Configuration: Added `brand.forest` mapping.
   Added sections: None
   Removed sections: None
   Templates requiring updates:
-    - .specify/templates/plan-template.md ✅ (reviewed, compatible)
-    - .specify/templates/spec-template.md ✅ (reviewed, compatible)
-    - .specify/templates/tasks-template.md ✅ (reviewed, compatible)
-  Follow-up TODOs: None
+    - .specify/templates/plan-template.md ✅
+  Follow-up TODOs:
+    - Update `globals.css` and `tailwind.config.ts` to include the new `forest` color token.
   
-  Bump rationale: MINOR - Material expansion of design system guidance and technology stack change (shadcn/ui addition)
+  Bump rationale: MINOR - Introduction of new secondary color token to the design system.
 -->
 
 # FitTrack Pro Constitution
@@ -35,49 +34,37 @@ The application MUST be designed as a Progressive Web App (PWA) optimized for mo
 
 **Rationale**: PWA approach enables cross-platform deployment without app store friction while maintaining native-like UX.
 
-### II. Dark Gradient Design System
+### II. Fresh Lime Design System
 
-All UI components MUST adhere to the established design system derived from reference design (template1.png):
+All UI components MUST adhere to the established design system derived from reference design (template1-3.png):
 
-- **Color Palette**:
-  - Background Primary: `#000000` (pure black)
-  - Background Secondary: `#0a0a0a` (near-black for elevated surfaces)
-  - Background Tertiary: `#1a1a1a` (dark gray for cards)
-  - Gradient Primary: `linear-gradient(135deg, #667eea 0%, #764ba2 100%)` (purple-violet)
-  - Gradient Accent: `linear-gradient(135deg, #f093fb 0%, #f5576c 100%)` (pink-coral)
-  - Gradient Success: `linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)` (cyan-blue)
-  - Gradient Warning: `linear-gradient(135deg, #fa709a 0%, #fee140 100%)` (pink-yellow)
-  - Accent Primary: `#667eea` (purple)
-  - Accent Secondary: `#f5576c` (coral pink)
-  - Accent Cyan: `#00f2fe` (bright cyan)
-  - Text Primary: `#ffffff`
-  - Text Secondary: `rgba(255, 255, 255, 0.7)`
-  - Text Muted: `rgba(255, 255, 255, 0.5)`
-  - Border: `rgba(255, 255, 255, 0.1)`
+- **Color Palette** (Strict adherence to Template 2):
+  - Primary: `#A8D922` (Lime Green) - Used for primary actions, active states, highlights.
+  - Secondary: `#495F41` (Forest Green) - Used for deeper accents, borders, or high-contrast elements.
+  - Background: `#F6F6F6` (Whitesmoke) - Main app background.
+  - Surface/Card: `#FFFFFF` (White) - Component background.
+  - Text Primary: `#000000` (Black) - Headings, main text.
+  - Text Secondary: `#9D9D9D` (Dark Gray) - Subtitles, metadata.
+  - Success: `#A8D922` (Matches Primary)
+  - Error: `#EF4444` (Standard Red)
 
 - **Typography**: 
-  - Font Family: Inter (via `next/font`)
-  - Weights: 400 (regular), 500 (medium), 600 (semibold), 700 (bold)
-  - Large Numbers: 700 weight, 2-3rem size for stats/metrics
+  - Font Family: Inter (San Serif similar to Mori Gothic)
+  - Weights: Regular (400), Medium (500), SemiBold (600), Bold (700)
+  - Headings: Bold, high contrast.
 
-- **Border Radius**: 
-  - Cards: 20px (xl rounded)
-  - Buttons: 12px (lg)
-  - Inputs: 10px (md)
-  - Pills/Tags: 9999px (full/rounded-full)
+- **Grid & Spacing** (Adherence to Template 3):
+  - Mobile Grid: 4 Columns
+  - Margins: 16px (side edges)
+  - Gutters: 20px (between cards)
+  - Border Radius: 20px-30px (Highly rounded aesthetic)
 
 - **Visual Effects**:
-  - Gradient overlays on cards and buttons
-  - Subtle border: `1px solid rgba(255, 255, 255, 0.1)`
-  - No heavy shadows, use gradients for depth
-  - Activity rings with gradient strokes
+  - Soft Shadows: Large, diffuse shadows for depth (e.g., `box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1)`)
+  - Clean Layouts: High whitespace, no clutter.
+  - Minimalist Icons: Simple strokes or solid shapes.
 
-- **Animations**: 
-  - Smooth micro-interactions (200-300ms duration, ease-out timing)
-  - Progress ring animations
-  - Button press feedback
-
-**Rationale**: The dark gradient aesthetic with vibrant color accents creates an energetic, premium feel that motivates users during fitness activities.
+**Rationale**: The "Fresh Lime" aesthetic creates a clean, energetic, and modern environment that feels approachable and professional, differentiating it from "dark mode" gamers aesthetics.
 
 ### III. Authentication & User Management
 
@@ -149,8 +136,8 @@ Start simple, enhance progressively. Avoid premature optimization:
 |-------|------------|---------|-------|
 | Framework | Next.js | 15.x | App Router, Server Components |
 | Language | TypeScript | 5.x | Strict mode enabled |
-| UI Components | shadcn/ui | Latest | Radix primitives, customizable |
-| Styling | Tailwind CSS | 3.x | Required by shadcn/ui |
+| UI Components | shadcn/ui | Latest | Radix primitives, highly customized |
+| Styling | Tailwind CSS | 3.x | Design system implementation |
 | Auth | Clerk | Latest | `@clerk/nextjs` |
 | Database | Neon | - | `@neondatabase/serverless` |
 | ORM | Drizzle | Latest | Type-safe, lightweight |
@@ -171,7 +158,7 @@ shadcn/ui MUST be configured with the following settings:
   "tailwind": {
     "config": "tailwind.config.ts",
     "css": "src/app/globals.css",
-    "baseColor": "zinc",
+    "baseColor": "slate",
     "cssVariables": true
   },
   "aliases": {
@@ -183,19 +170,19 @@ shadcn/ui MUST be configured with the following settings:
 
 ### Core shadcn/ui Components
 
-The following components MUST be installed and customized:
+The following components MUST be installed and customized to "Fresh Lime" theme:
 
-- `button` - Gradient variants added
-- `card` - Dark gradient backgrounds
-- `input` - Dark theme styling
-- `dialog` - Modal overlays
-- `dropdown-menu` - Dark popover menus
-- `tabs` - Navigation tabs
-- `progress` - Activity rings (customized)
-- `avatar` - User profile
-- `badge` - Tags and status indicators
-- `calendar` - Workout scheduling
-- `toast` - Notifications
+- `button` - Solid Black, Outline, and Ghost variants
+- `card` - White background, soft shadow (no border)
+- `input` - Light gray background (#F6F6F6), no border unless active
+- `dialog` - Clean white modal
+- `dropdown-menu` - Minimalist white popover
+- `tabs` - Lime indicator
+- `progress` - Lime fill, light gray track
+- `avatar` - Circular
+- `badge` - Lime soft background with dark text
+- `calendar` - Rounded selection zones
+- `toast` - Clean simple notifications
 
 ### Development Dependencies
 
@@ -265,40 +252,36 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Brand gradients as solid colors for utilities
         brand: {
-          purple: "#667eea",
-          violet: "#764ba2",
-          pink: "#f093fb",
-          coral: "#f5576c",
-          cyan: "#00f2fe",
-          blue: "#4facfe",
+          lime: "#A8D922", // Primary
+          forest: "#495F41", // Secondary
+          black: "#000000",
+          whitesmoke: "#F6F6F6", // Background
+          darkgray: "#9D9D9D", // Secondary Text
         },
-        // Override shadcn defaults for dark theme
-        background: "#000000",
-        foreground: "#ffffff",
+        background: "#F6F6F6",
+        foreground: "#000000",
         card: {
-          DEFAULT: "#0a0a0a",
-          foreground: "#ffffff",
+          DEFAULT: "#FFFFFF",
+          foreground: "#000000",
+        },
+        primary: {
+          DEFAULT: "#A8D922",
+          foreground: "#000000",
+        },
+        secondary: {
+          DEFAULT: "#495F41",
+          foreground: "#FFFFFF",
         },
         muted: {
-          DEFAULT: "#1a1a1a",
-          foreground: "rgba(255, 255, 255, 0.5)",
+          DEFAULT: "#F6F6F6",
+          foreground: "#9D9D9D",
         },
-        accent: {
-          DEFAULT: "#667eea",
-          foreground: "#ffffff",
-        },
-        border: "rgba(255, 255, 255, 0.1)",
-      },
-      backgroundImage: {
-        "gradient-primary": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        "gradient-accent": "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-        "gradient-success": "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-        "gradient-warning": "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+        border: "#E5E5E5",
       },
       borderRadius: {
-        "2xl": "20px",
+        "xl": "20px",
+        "2xl": "30px",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
@@ -307,47 +290,31 @@ const config: Config = {
   },
   plugins: [require("tailwindcss-animate")],
 };
-
-export default config;
 ```
 
 ### Key UI Patterns (from Reference)
 
-1. **Gradient Cards**: Workout cards use gradient backgrounds with rounded corners
-2. **Activity Rings**: Circular progress indicators with gradient strokes (like Apple Watch)
-3. **Bottom Navigation**: Fixed bottom nav with 4-5 icons, gradient active state
-4. **Stat Displays**: Large bold numbers with small labels below
-5. **Calendar View**: Week strip at top showing daily workout completion
-6. **Exercise Lists**: Horizontal scrollable cards for exercise selection
-
-### Custom Component: Activity Ring
-
-```tsx
-// Example pattern for activity ring component
-interface ActivityRingProps {
-  progress: number; // 0-100
-  size?: "sm" | "md" | "lg";
-  gradient?: "primary" | "accent" | "success";
-}
-```
+1. **Clean Cards**: White cards on Whitesmoke background, large border radius (20px).
+2. **Lime Accents**: Primary actions and active states use `#A8D922`.
+3. **Bottom Navigation**: Floating or fixed bottom nav with ample padding.
+4. **Typography**: Large, bold headings in Black; metadata in Dark Gray.
+5. **Avatars**: Illustrated avatars (if possible) or clean photos.
 
 ### Equipment Icons
 
-The app tracks workouts with specific equipment using Lucide icons:
-- Bodyweight: `User` or custom icon
-- Dumbbells: `Dumbbell`
-- Barbells: Custom SVG
-- Kettlebells: Custom SVG
-- Treadmill: `Activity` or custom icon
-
-Each equipment type MUST have consistent iconography throughout the app.
+The app tracks workouts with specific equipment:
+- Bodyweight
+- Dumbbells
+- Barbells
+- Kettlebells
+- Treadmill
 
 ## Development Workflow
 
 ### Git Branch Strategy
 
-- `main` - Production branch, deployed to Vercel automatically
-- `develop` - Integration branch for features
+- `main` - Production branch
+- `develop` - Integration branch
 - `feature/[issue-id]-description` - Feature branches
 - `fix/[issue-id]-description` - Bug fix branches
 
@@ -357,61 +324,49 @@ Follow Conventional Commits:
 - `feat:` New features
 - `fix:` Bug fixes
 - `docs:` Documentation changes
-- `style:` Formatting, no code change
+- `style:` Formatting
 - `refactor:` Code restructuring
-- `test:` Adding/updating tests
-- `chore:` Build process, dependencies
+- `test:` Adding tests
+- `chore:` Maintenance
 
 ### PR Requirements
 
-All pull requests MUST:
-1. Pass all CI checks (lint, type-check, tests)
-2. Have descriptive title following commit convention
-3. Include screenshots for UI changes
-4. Update relevant documentation
+1. Pass all CI checks
+2. Descriptive title
+3. Screenshots for UI changes
+4. Update documentation
 
 ### Deployment Pipeline
 
-1. Push to `develop` → Preview deployment on Vercel
-2. Merge to `main` → Production deployment on Vercel
-3. Database migrations run automatically via Drizzle
+1. Push to `develop` → Preview
+2. Merge to `main` → Production
+3. DB migrations automatic
 
 ## Governance
 
 ### Constitution Authority
 
-This constitution is the authoritative source for project standards. All development decisions MUST align with these principles. In case of conflict:
-
-1. Constitution principles take precedence
-2. If principle is ambiguous, discuss and amend constitution
-3. Temporary exceptions MUST be documented in PR with justification
+This constitution is the authoritative source for project standards.
 
 ### Amendment Process
 
-To amend this constitution:
-1. Create a proposal with rationale
-2. Document impact on existing code
-3. Update version number following semver:
-   - MAJOR: Breaking changes to principles
-   - MINOR: New principles or significant expansions
-   - PATCH: Clarifications, typo fixes
-4. Update all dependent templates if needed
+1. Create a proposal
+2. Document impact
+3. Update version (MAJOR/MINOR/PATCH)
+4. Update dependent templates
 
 ### Compliance Review
 
-Before each release:
-- [ ] All new code follows design system (dark gradients, shadcn/ui)
-- [ ] Authentication implemented at all data access points
-- [ ] Database operations use Drizzle ORM
-- [ ] AI features have rate limiting and error handling
-- [ ] PWA manifest and service worker are functional
-- [ ] Core Web Vitals pass "Good" thresholds
+- [ ] UI follows Fresh Lime design (#A8D922, #F6F6F6)
+- [ ] Mobile-first responsive grid (4 col, 16px margin)
+- [ ] Auth & DB security standards met
+- [ ] PWA functionality verified
 
 ### Guidance Files
 
-- `/README.md` - Project overview and quickstart
-- `/docs/setup.md` - Development environment setup
-- `/docs/api.md` - API documentation
-- `/docs/design-system.md` - Component usage guide
+- `/README.md`
+- `/docs/setup.md`
+- `/docs/api.md`
+- `/docs/design-system.md`
 
-**Version**: 1.1.0 | **Ratified**: 2026-01-03 | **Last Amended**: 2026-01-03
+**Version**: 1.3.0 | **Ratified**: 2026-01-03 | **Last Amended**: 2026-01-04

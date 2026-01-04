@@ -10,6 +10,9 @@ const nextConfig = {
     // Enable TypeScript checking in production build
     ignoreBuildErrors: false,
   },
+  experimental: {
+    allowedOrigins: ["192.168.1.101:3003", "localhost:3003", "fit.harirak-int.work"],
+  },
 } as any;
 
 export default nextConfig;

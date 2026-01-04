@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { estimateCalories } from '@/lib/calories';
-import { Flame, Gauge } from 'lucide-react';
+import { Flame, Gauge, Clock } from 'lucide-react';
 
 export interface TreadmillFormProps {
   durationSeconds: number;
@@ -42,11 +42,11 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
   const isFormValid = distanceKm && parseFloat(distanceKm) > 0 && !disabled;
 
   return (
-    <Card className="border-gray-800 bg-gray-900/50 backdrop-blur-sm p-6">
+    <Card className="border-border bg-card p-6 w-full">
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         {/* Distance Input */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="distance" className="text-sm font-medium text-white/90">
+          <label htmlFor="distance" className="text-sm font-medium text-foreground">
             Distance (km)
           </label>
           <Input
@@ -58,7 +58,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
             placeholder="e.g., 5.0"
             value={distanceKm}
             onChange={(e) => setDistanceKm(e.target.value)}
-            className="bg-gray-800 border-gray-700 text-white placeholder:text-white/40"
+            className="bg-background border-input text-foreground placeholder:text-muted-foreground"
             required
             autoFocus
             disabled={disabled}
@@ -67,7 +67,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
 
         {/* Weight Input (Optional) */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="weight" className="text-sm font-medium text-white/90">
+          <label htmlFor="weight" className="text-sm font-medium text-foreground">
             Your Weight (kg) - Optional
           </label>
           <Input
@@ -79,24 +79,24 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
             placeholder="70"
             value={userWeightKg}
             onChange={(e) => setUserWeightKg(e.target.value)}
-            className="bg-gray-800 border-gray-700 text-white placeholder:text-white/40"
+            className="bg-background border-input text-foreground placeholder:text-muted-foreground"
             disabled={disabled}
           />
-          <p className="text-xs text-white/50">
+          <p className="text-xs text-muted-foreground">
             Used for more accurate calorie calculation
           </p>
         </div>
 
         {/* Calculated Stats */}
         {distanceKm && avgSpeedKmh > 0 && (
-          <div className="flex flex-col gap-3 rounded-lg bg-gray-800/50 p-4">
+          <div className="flex flex-col gap-3 rounded-lg bg-muted p-4">
             {/* Speed Display */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Gauge className="h-5 w-5 text-purple-400" />
-                <span className="text-sm font-medium text-white/80">Avg Speed</span>
+                <Gauge className="h-5 w-5 text-primary" />
+                <span className="text-sm font-medium text-muted-foreground">Avg Speed</span>
               </div>
-              <span className="text-lg font-semibold text-white">
+              <span className="text-lg font-semibold text-foreground">
                 {avgSpeedKmh.toFixed(1)} km/h
               </span>
             </div>
@@ -104,10 +104,10 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
             {/* Calories Display */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Flame className="h-5 w-5 text-orange-400" />
-                <span className="text-sm font-medium text-white/80">Calories Burned</span>
+                <Flame className="h-5 w-5 text-orange-500" />
+                <span className="text-sm font-medium text-muted-foreground">Calories Burned</span>
               </div>
-              <span className="text-lg font-semibold text-white">
+              <span className="text-lg font-semibold text-foreground">
                 {Math.round(caloriesBurned)} kcal
               </span>
             </div>
@@ -115,9 +115,10 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
             {/* Duration Display */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-white/80">Duration</span>
+                <Clock className="h-5 w-5 text-blue-500" />
+                <span className="text-sm font-medium text-muted-foreground">Duration</span>
               </div>
-              <span className="text-lg font-semibold text-white">
+              <span className="text-lg font-semibold text-foreground">
                 {Math.floor(durationSeconds / 60)}:{(durationSeconds % 60).toString().padStart(2, '0')}
               </span>
             </div>
@@ -130,7 +131,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
             type="button"
             variant="outline"
             onClick={onCancel}
-            className="flex-1 border-gray-700 bg-gray-800 text-white hover:bg-gray-700"
+            className="flex-1"
             disabled={disabled}
           >
             Back
@@ -138,7 +139,7 @@ export function TreadmillForm({ durationSeconds, onComplete, onCancel, disabled 
           <Button
             type="submit"
             disabled={!isFormValid}
-            className="flex-1 bg-gradient-to-r from-purple-600 to-violet-600 text-white hover:from-purple-700 hover:to-violet-700 disabled:opacity-50"
+            className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
           >
             {disabled ? 'Saving...' : 'Save Workout'}
           </Button>

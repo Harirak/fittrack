@@ -34,35 +34,31 @@ export function WorkoutCard({ workout, onClick }: WorkoutCardProps) {
 
   return (
     <Card
-      className="border-gray-800 bg-gray-900/50 backdrop-blur-sm p-4 hover:bg-gray-800/50 transition-colors cursor-pointer"
+      className="border-border bg-card p-4 hover:shadow-md transition-all cursor-pointer"
       onClick={onClick}
     >
       <div className="flex items-start justify-between gap-4">
         {/* Left: Icon and Type */}
         <div className="flex items-center gap-3">
-          <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${
-            isTreadmill
-              ? 'bg-gradient-to-br from-purple-500/20 to-violet-500/20'
-              : 'bg-gradient-to-br from-orange-500/20 to-red-500/20'
-          }`}>
+          <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10`}>
             {isTreadmill ? (
-              <Gauge className="h-6 w-6 text-purple-400" />
+              <Gauge className="h-6 w-6 text-primary" />
             ) : (
-              <Dumbbell className="h-6 w-6 text-orange-400" />
+              <Dumbbell className="h-6 w-6 text-primary" />
             )}
           </div>
 
           <div>
-            <h3 className="font-semibold text-white capitalize">
+            <h3 className="font-semibold text-foreground capitalize">
               {isTreadmill ? 'Treadmill' : 'Strength Training'}
             </h3>
-            <p className="text-sm text-white/60">{timeAgo}</p>
+            <p className="text-sm text-muted-foreground">{timeAgo}</p>
           </div>
         </div>
 
         {/* Right: Stats */}
         <div className="flex flex-col items-end gap-2">
-          <Badge variant="secondary" className="bg-gray-800 text-white/80">
+          <Badge variant="secondary" className="bg-muted text-muted-foreground">
             <Clock className="mr-1 h-3 w-3" />
             {durationMinutes}m
           </Badge>
@@ -71,13 +67,13 @@ export function WorkoutCard({ workout, onClick }: WorkoutCardProps) {
           {isTreadmill && workout.treadmillData && (
             <div className="flex items-center gap-3 text-sm">
               {workout.treadmillData.caloriesBurned && (
-                <div className="flex items-center gap-1 text-white/60">
-                  <Flame className="h-3 w-3 text-orange-400" />
+                <div className="flex items-center gap-1 text-muted-foreground">
+                  <Flame className="h-3 w-3 text-primary" />
                   <span>{Math.round(workout.treadmillData.caloriesBurned)}</span>
                 </div>
               )}
-              <div className="flex items-center gap-1 text-white/60">
-                <Gauge className="h-3 w-3 text-purple-400" />
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <Gauge className="h-3 w-3 text-primary" />
                 <span>{workout.treadmillData.distanceKm.toFixed(1)} km</span>
               </div>
             </div>
@@ -85,7 +81,7 @@ export function WorkoutCard({ workout, onClick }: WorkoutCardProps) {
 
           {/* Strength-specific stats */}
           {!isTreadmill && workout.strengthData && (
-            <div className="text-sm text-white/60">
+            <div className="text-sm text-muted-foreground">
               {workout.strengthData.exercises.length} exercises
             </div>
           )}

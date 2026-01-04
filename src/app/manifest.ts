@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Track your workouts, generate AI-powered fitness plans, and achieve your goals.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#000000',
-    theme_color: '#667eea',
+    background_color: '#F6F6F6',
+    theme_color: '#F6F6F6',
     orientation: 'portrait',
     icons: [
       {

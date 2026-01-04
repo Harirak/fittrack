@@ -1,6 +1,6 @@
 'use client';
 
-// Header with app logo and user avatar dropdown
+// Header with app logo and user avatar dropdown - Responsive design
 import { User, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { useClerk, UserButton } from '@clerk/nextjs';
@@ -15,13 +15,14 @@ export function Header({ title }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex h-14 max-w-md items-center justify-between px-4">
+      {/* Responsive header container */}
+      <div className="mx-auto flex h-14 w-full max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-violet-600">
-              <DumbbellIcon className="h-5 w-5 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+              <DumbbellIcon className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-lg font-bold gradient-text">FitTrack Pro</span>
+            <span className="text-lg font-bold text-foreground">FitTrack Pro</span>
           </Link>
         </div>
 

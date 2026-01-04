@@ -104,90 +104,90 @@ export default function NewWorkoutPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-950 via-gray-950 to-black">
+    <div className="flex min-h-screen flex-col bg-background">
       {/* Header */}
-      <div className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="flex items-center justify-between gap-4 p-4">
+      <div className="border-b border-border bg-background/95 backdrop-blur-sm">
+        <div className="flex items-center justify-between gap-4 p-4 md:p-6">
           <div className="flex items-center gap-4">
             <Link href="/workouts">
-              <Button variant="ghost" size="icon" className="text-white/80 hover:text-white">
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
                 <ArrowLeft className="h-5 w-5" />
               </Button>
             </Link>
-            <h1 className="text-lg font-semibold text-white">New Workout</h1>
+            <h1 className="text-lg font-semibold text-foreground">New Workout</h1>
           </div>
 
           {/* Offline indicator */}
           {!isOnline && (
-            <div className="flex items-center gap-2 rounded-full bg-yellow-500/20 px-3 py-1.5">
-              <CloudOff className="h-4 w-4 text-yellow-400" />
-              <span className="text-sm font-medium text-yellow-400">Offline</span>
+            <div className="flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5 border border-amber-300">
+              <CloudOff className="h-4 w-4 text-amber-600" />
+              <span className="text-sm font-medium text-amber-700">Offline</span>
             </div>
           )}
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-4 md:p-6">
         {step === 'select' && (
-          <div className="flex flex-col gap-4">
-            <h2 className="text-xl font-semibold text-white">Select Workout Type</h2>
+          <div className="flex flex-col gap-4 max-w-2xl mx-auto">
+            <h2 className="text-xl font-semibold text-foreground">Select Workout Type</h2>
 
             <button
               onClick={() => setStep('timer')}
-              className="flex items-center gap-4 rounded-xl border border-purple-500/30 bg-purple-500/10 p-6 text-left transition-colors hover:bg-purple-500/20"
+              className="flex items-center gap-4 rounded-xl border-2 border-primary/30 bg-primary/5 p-6 text-left transition-all hover:bg-primary/10 hover:border-primary/50 hover:shadow-md"
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-green-600">
                 <span className="text-3xl">🏃</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-white">Treadmill</h3>
-                <p className="text-sm text-white/60">Track your running or walking sessions</p>
+                <h3 className="text-lg font-semibold text-foreground">Treadmill</h3>
+                <p className="text-sm text-muted-foreground">Track your running or walking sessions</p>
               </div>
             </button>
 
             <button
               disabled
-              className="flex items-center gap-4 rounded-xl border border-gray-700 bg-gray-800/30 p-6 text-left opacity-50"
+              className="flex items-center gap-4 rounded-xl border-2 border-border bg-muted/30 p-6 text-left opacity-60 cursor-not-allowed"
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-red-600">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-red-500">
                 <span className="text-3xl">💪</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-white">Strength Training</h3>
-                <p className="text-sm text-white/60">Coming soon</p>
+                <h3 className="text-lg font-semibold text-foreground">Strength Training</h3>
+                <p className="text-sm text-muted-foreground">Coming soon</p>
               </div>
             </button>
           </div>
         )}
 
         {step === 'timer' && (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center max-w-md mx-auto">
             <WorkoutTimer onComplete={handleTimerComplete} />
           </div>
         )}
 
         {step === 'complete' && (
-          <div className="flex max-w-md flex-col items-center">
+          <div className="flex max-w-md flex-col items-center mx-auto">
             {/* Save Status Messages */}
             {saveStatus === 'saving' && (
-              <div className="mb-4 flex items-center gap-2 rounded-lg bg-blue-500/20 px-4 py-3">
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-blue-400 border-t-transparent" />
-                <span className="text-sm font-medium text-blue-400">Saving workout...</span>
+              <div className="mb-4 flex items-center gap-2 rounded-lg bg-blue-100 border border-blue-300 px-4 py-3">
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
+                <span className="text-sm font-medium text-blue-700">Saving workout...</span>
               </div>
             )}
 
             {saveStatus === 'saved' && (
-              <div className="mb-4 flex items-center gap-2 rounded-lg bg-green-500/20 px-4 py-3">
-                <CheckCircle2 className="h-4 w-4 text-green-400" />
-                <span className="text-sm font-medium text-green-400">Workout saved!</span>
+              <div className="mb-4 flex items-center gap-2 rounded-lg bg-green-100 border border-green-300 px-4 py-3">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <span className="text-sm font-medium text-green-700">Workout saved!</span>
               </div>
             )}
 
             {saveStatus === 'offline' && (
-              <div className="mb-4 flex items-center gap-2 rounded-lg bg-yellow-500/20 px-4 py-3">
-                <CloudOff className="h-4 w-4 text-yellow-400" />
-                <span className="text-sm font-medium text-yellow-400">
+              <div className="mb-4 flex items-center gap-2 rounded-lg bg-amber-100 border border-amber-300 px-4 py-3">
+                <CloudOff className="h-4 w-4 text-amber-600" />
+                <span className="text-sm font-medium text-amber-700">
                   Saved offline. Will sync when connected.
                 </span>
               </div>

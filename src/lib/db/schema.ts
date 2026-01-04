@@ -152,6 +152,65 @@ export const activityGoals = pgTable('activity_goals', {
   userGoalUnique: uniqueIndex('activity_goals_user_type_unique').on(table.userId, table.type),
 }));
 
+// ============= Relations =============
+import { relations } from 'drizzle-orm';
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  equipmentProfile: one(equipmentProfiles),
+  workouts: many(workouts),
+  workoutPlans: many(workoutPlans),
+  activityGoals: many(activityGoals),
+}));
+
+export const equipmentProfilesRelations = relations(equipmentProfiles, ({ one }) => ({
+  user: one(users, {
+    fields: [equipmentProfiles.userId],
+    references: [users.id],
+  }),
+}));
+
+export const workoutsRelations = relations(workouts, ({ one }) => ({
+  user: one(users, {
+    fields: [workouts.userId],
+    references: [users.id],
+  }),
+  treadmillData: one(treadmillData),
+  strengthData: one(strengthWorkoutData),
+}));
+
+export const treadmillDataRelations = relations(treadmillData, ({ one }) => ({
+  workout: one(workouts, {
+    fields: [treadmillData.workoutId],
+    references: [workouts.id],
+  }),
+}));
+
+export const strengthWorkoutDataRelations = relations(strengthWorkoutData, ({ one }) => ({
+  workout: one(workouts, {
+    fields: [strengthWorkoutData.workoutId],
+    references: [workouts.id],
+  }),
+  plan: one(workoutPlans, {
+    fields: [strengthWorkoutData.planId],
+    references: [workoutPlans.id],
+  }),
+}));
+
+export const workoutPlansRelations = relations(workoutPlans, ({ one, many }) => ({
+  user: one(users, {
+    fields: [workoutPlans.userId],
+    references: [users.id],
+  }),
+  strengthWorkouts: many(strengthWorkoutData), // A plan can be used by many workouts
+}));
+
+export const activityGoalsRelations = relations(activityGoals, ({ one }) => ({
+  user: one(users, {
+    fields: [activityGoals.userId],
+    references: [users.id],
+  }),
+}));
+
 // ============= Type Exports =============
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;

@@ -72,27 +72,27 @@ export default function ManualWorkoutPage() {
   const isFormValid = formData.distanceKm && parseFloat(formData.distanceKm) > 0;
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-950 via-gray-950 to-black">
+    <div className="flex min-h-screen flex-col bg-background">
       {/* Header */}
-      <div className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="flex items-center gap-4 p-4">
+      <div className="border-b border-border bg-background/95 backdrop-blur-sm">
+        <div className="flex items-center gap-4 p-4 md:p-6">
           <Link href="/workouts">
-            <Button variant="ghost" size="icon" className="text-white/80 hover:text-white">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-5 w-5" />
             </Button>
           </Link>
-          <h1 className="text-lg font-semibold text-white">Manual Entry</h1>
+          <h1 className="text-lg font-semibold text-foreground">Manual Entry</h1>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-4 md:p-6">
         <div className="mx-auto max-w-md">
-          <Card className="border-gray-800 bg-gray-900/50 backdrop-blur-sm p-6">
+          <Card className="border-border bg-card p-6">
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               {/* Date Input */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="date" className="text-sm font-medium text-white/90">
+                <label htmlFor="date" className="text-sm font-medium text-foreground">
                   <Calendar className="mr-2 inline h-4 w-4" />
                   Date
                 </label>
@@ -101,14 +101,14 @@ export default function ManualWorkoutPage() {
                   type="date"
                   value={formData.date}
                   onChange={(e) => handleChange('date', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white"
+                  className="bg-background border-input text-foreground"
                   required
                 />
               </div>
 
               {/* Duration Input */}
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-white/90">
+                <label className="text-sm font-medium text-foreground">
                   <Clock className="mr-2 inline h-4 w-4" />
                   Duration
                 </label>
@@ -121,9 +121,9 @@ export default function ManualWorkoutPage() {
                       placeholder="0"
                       value={formData.hours}
                       onChange={(e) => handleChange('hours', e.target.value)}
-                      className="bg-gray-800 border-gray-700 text-white"
+                      className="bg-background border-input text-foreground"
                     />
-                    <span className="mt-1 block text-xs text-white/50">Hours</span>
+                    <span className="mt-1 block text-xs text-muted-foreground">Hours</span>
                   </div>
                   <div className="flex-1">
                     <Input
@@ -133,16 +133,16 @@ export default function ManualWorkoutPage() {
                       placeholder="30"
                       value={formData.minutes}
                       onChange={(e) => handleChange('minutes', e.target.value)}
-                      className="bg-gray-800 border-gray-700 text-white"
+                      className="bg-background border-input text-foreground"
                     />
-                    <span className="mt-1 block text-xs text-white/50">Minutes</span>
+                    <span className="mt-1 block text-xs text-muted-foreground">Minutes</span>
                   </div>
                 </div>
               </div>
 
               {/* Distance Input */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="distance" className="text-sm font-medium text-white/90">
+                <label htmlFor="distance" className="text-sm font-medium text-foreground">
                   Distance (km)
                 </label>
                 <Input
@@ -154,14 +154,14 @@ export default function ManualWorkoutPage() {
                   placeholder="e.g., 5.0"
                   value={formData.distanceKm}
                   onChange={(e) => handleChange('distanceKm', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-white/40"
+                  className="bg-background border-input text-foreground placeholder:text-muted-foreground"
                   required
                 />
               </div>
 
               {/* Weight Input */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="weight" className="text-sm font-medium text-white/90">
+                <label htmlFor="weight" className="text-sm font-medium text-foreground">
                   Your Weight (kg) - Optional
                 </label>
                 <Input
@@ -173,9 +173,9 @@ export default function ManualWorkoutPage() {
                   placeholder="70"
                   value={formData.weightKg}
                   onChange={(e) => handleChange('weightKg', e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-white/40"
+                  className="bg-background border-input text-foreground placeholder:text-muted-foreground"
                 />
-                <p className="text-xs text-white/50">
+                <p className="text-xs text-muted-foreground">
                   Used for more accurate calorie calculation
                 </p>
               </div>
@@ -184,7 +184,7 @@ export default function ManualWorkoutPage() {
               <Button
                 type="submit"
                 disabled={!isFormValid || loading}
-                className="w-full bg-gradient-to-r from-purple-600 to-violet-600 text-white hover:from-purple-700 hover:to-violet-700 disabled:opacity-50"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
               >
                 {loading ? 'Saving...' : 'Save Workout'}
               </Button>

@@ -135,16 +135,16 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-zinc-950 via-zinc-900 to-black">
+    <div className="flex min-h-screen flex-col bg-background">
       {/* Header with progress */}
-      <div className="border-b border-zinc-800 bg-zinc-950/50 backdrop-blur-sm">
+      <div className="border-b border-border bg-background/95 backdrop-blur-sm">
         <div className="mx-auto max-w-lg px-4 py-6">
-          <div className="mb-2 flex items-center justify-between text-sm text-zinc-400">
+          <div className="mb-2 flex items-center justify-between text-sm text-muted-foreground">
             <span>Step {stepNumber} of {TOTAL_STEPS}</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <Progress value={progress} className="h-2" />
-          <h1 className="mt-4 text-center text-xl font-semibold text-white">
+          <Progress value={progress} className="h-2 bg-muted" />
+          <h1 className="mt-4 text-center text-xl font-semibold text-foreground">
             {STEP_TITLES[currentStep]}
           </h1>
         </div>
@@ -202,44 +202,44 @@ function WelcomeStep({ onNext }: { onNext: () => void }) {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500">
-          <Check className="h-10 w-10 text-white" />
+        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/20">
+          <Check className="h-10 w-10 text-primary" />
         </div>
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-2xl font-bold text-foreground">
           Let's set up your profile
         </h2>
-        <p className="mt-2 text-zinc-400">
+        <p className="mt-2 text-muted-foreground">
           We'll personalize your experience based on your fitness level, equipment, and goals.
         </p>
       </div>
 
-      <Card className="border-zinc-800 bg-zinc-900/50">
+      <Card className="border-border bg-card">
         <CardContent className="space-y-4 p-6">
           <div className="flex items-start gap-3">
-            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-500/20 text-xs font-bold text-purple-400">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">
               1
             </div>
             <div>
-              <h3 className="font-medium text-white">Fitness Level</h3>
-              <p className="text-sm text-zinc-400">Tell us about your experience</p>
+              <h3 className="font-medium text-foreground">Fitness Level</h3>
+              <p className="text-sm text-muted-foreground">Tell us about your experience</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-500/20 text-xs font-bold text-pink-400">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-500/20 text-xs font-bold text-purple-500">
               2
             </div>
             <div>
-              <h3 className="font-medium text-white">Your Equipment</h3>
-              <p className="text-sm text-zinc-400">Select what you have available</p>
+              <h3 className="font-medium text-foreground">Your Equipment</h3>
+              <p className="text-sm text-muted-foreground">Select what you have available</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-xs font-bold text-cyan-400">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-500/20 text-xs font-bold text-orange-500">
               3
             </div>
             <div>
-              <h3 className="font-medium text-white">Your Goals</h3>
-              <p className="text-sm text-zinc-400">Set your fitness targets</p>
+              <h3 className="font-medium text-foreground">Your Goals</h3>
+              <p className="text-sm text-muted-foreground">Set your fitness targets</p>
             </div>
           </div>
         </CardContent>
@@ -248,7 +248,7 @@ function WelcomeStep({ onNext }: { onNext: () => void }) {
       <div className="flex justify-end">
         <Button
           onClick={onNext}
-          className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+          className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
         >
           Get Started
           <ArrowRight className="h-4 w-4" />
@@ -273,14 +273,14 @@ function FitnessStep({
 }) {
   return (
     <div className="space-y-6">
-      <p className="text-center text-zinc-400">
+      <p className="text-center text-muted-foreground">
         This helps us recommend exercises and workouts that match your experience level.
       </p>
 
-      <Card className="border-zinc-800 bg-zinc-900/50">
+      <Card className="border-border bg-card">
         <CardContent className="space-y-6 p-6">
           <div>
-            <label className="mb-3 block text-sm font-medium text-white">
+            <label className="mb-3 block text-sm font-medium text-foreground">
               Fitness Level
             </label>
             <div className="grid gap-3">
@@ -292,15 +292,15 @@ function FitnessStep({
                   className={cn(
                     'flex items-center justify-between rounded-lg border-2 p-4 text-left transition-all',
                     data.fitnessLevel === level
-                      ? 'border-purple-500 bg-purple-500/10'
-                      : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700'
+                      ? 'border-primary bg-primary/10'
+                      : 'border-border bg-card hover:border-primary/50'
                   )}
                 >
-                  <span className="font-medium text-white">
+                  <span className="font-medium text-foreground">
                     {FITNESS_LEVEL_LABELS[level]}
                   </span>
                   {data.fitnessLevel === level && (
-                    <Check className="h-5 w-5 text-purple-500" />
+                    <Check className="h-5 w-5 text-primary" />
                   )}
                 </button>
               ))}
@@ -308,7 +308,7 @@ function FitnessStep({
           </div>
 
           <div>
-            <label className="mb-3 block text-sm font-medium text-white">
+            <label className="mb-3 block text-sm font-medium text-foreground">
               Preferred Units
             </label>
             <div className="grid gap-3">
@@ -320,15 +320,15 @@ function FitnessStep({
                   className={cn(
                     'flex items-center justify-between rounded-lg border-2 p-4 text-left transition-all',
                     data.unitPreference === unit
-                      ? 'border-purple-500 bg-purple-500/10'
-                      : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700'
+                      ? 'border-primary bg-primary/10'
+                      : 'border-border bg-card hover:border-primary/50'
                   )}
                 >
-                  <span className="font-medium text-white">
+                  <span className="font-medium text-foreground">
                     {UNIT_LABELS[unit]}
                   </span>
                   {data.unitPreference === unit && (
-                    <Check className="h-5 w-5 text-purple-500" />
+                    <Check className="h-5 w-5 text-primary" />
                   )}
                 </button>
               ))}
@@ -341,7 +341,7 @@ function FitnessStep({
         <Button
           variant="outline"
           onClick={onBack}
-          className="border-zinc-800 text-zinc-400 hover:bg-zinc-900 hover:text-white"
+          className="border-input text-muted-foreground hover:bg-muted hover:text-foreground"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -349,7 +349,7 @@ function FitnessStep({
         <Button
           onClick={onNext}
           disabled={isLoading}
-          className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+          className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
         >
           Continue
           <ArrowRight className="h-4 w-4" />
@@ -381,7 +381,7 @@ function EquipmentStep({
 
   return (
     <div className="space-y-6">
-      <p className="text-center text-zinc-400">
+      <p className="text-center text-muted-foreground">
         Select all the equipment you have access to. We'll filter exercises and workouts to match what's available.
       </p>
 
@@ -395,7 +395,7 @@ function EquipmentStep({
         <Button
           variant="outline"
           onClick={onBack}
-          className="border-zinc-800 text-zinc-400 hover:bg-zinc-900 hover:text-white"
+          className="border-input text-muted-foreground hover:bg-muted hover:text-foreground"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -403,7 +403,7 @@ function EquipmentStep({
         <Button
           onClick={onNext}
           disabled={isLoading}
-          className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+          className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
         >
           Continue
           <ArrowRight className="h-4 w-4" />
@@ -428,11 +428,11 @@ function GoalsStep({
 }) {
   return (
     <div className="space-y-6">
-      <p className="text-center text-zinc-400">
+      <p className="text-center text-muted-foreground">
         Knowing your goals helps us generate personalized workout plans for you.
       </p>
 
-      <Card className="border-zinc-800 bg-zinc-900/50">
+      <Card className="border-border bg-card">
         <CardContent className="space-y-4 p-6">
           {(['build_muscle', 'lose_weight', 'general_fitness'] as const).map((goal) => (
             <button
@@ -442,24 +442,24 @@ function GoalsStep({
               className={cn(
                 'w-full rounded-lg border-2 p-6 text-left transition-all',
                 data.goal === goal
-                  ? 'border-purple-500 bg-gradient-to-br from-purple-500/10 to-pink-500/10'
-                  : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700'
+                  ? 'border-primary bg-primary/10'
+                  : 'border-border bg-card hover:border-primary/50'
               )}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-white">
+                  <h3 className="text-lg font-semibold text-foreground">
                     {GOAL_LABELS[goal]}
                   </h3>
-                  <p className="mt-1 text-sm text-zinc-400">
+                  <p className="mt-1 text-sm text-muted-foreground">
                     {goal === 'build_muscle' && 'Focus on strength and hypertrophy training'}
                     {goal === 'lose_weight' && 'High-intensity workouts to burn calories'}
                     {goal === 'general_fitness' && 'Balanced training for overall health'}
                   </p>
                 </div>
                 {data.goal === goal && (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500">
-                    <Check className="h-5 w-5 text-white" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20">
+                    <Check className="h-5 w-5 text-primary" />
                   </div>
                 )}
               </div>
@@ -472,7 +472,7 @@ function GoalsStep({
         <Button
           variant="outline"
           onClick={onBack}
-          className="border-zinc-800 text-zinc-400 hover:bg-zinc-900 hover:text-white"
+          className="border-input text-muted-foreground hover:bg-muted hover:text-foreground"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -480,7 +480,7 @@ function GoalsStep({
         <Button
           onClick={onNext}
           disabled={isLoading}
-          className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+          className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
         >
           {isLoading ? 'Saving...' : 'Complete Setup'}
           {!isLoading && <ArrowRight className="h-4 w-4" />}
@@ -493,48 +493,48 @@ function GoalsStep({
 function CompleteStep({ onFinish }: { onFinish: () => void }) {
   return (
     <div className="space-y-6 text-center">
-      <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-500">
-        <Check className="h-12 w-12 text-white" />
+      <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-primary/20">
+        <Check className="h-12 w-12 text-primary" />
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-2xl font-bold text-foreground">
           You're all set!
         </h2>
-        <p className="mt-2 text-zinc-400">
+        <p className="mt-2 text-muted-foreground">
           Your profile has been configured. Start tracking your workouts today!
         </p>
       </div>
 
-      <Card className="border-zinc-800 bg-zinc-900/50">
+      <Card className="border-border bg-card">
         <CardContent className="space-y-4 p-6">
-          <h3 className="font-medium text-white">What's next?</h3>
+          <h3 className="font-medium text-foreground">What's next?</h3>
           <div className="space-y-3 text-left">
             <div className="flex items-start gap-3 text-sm">
-              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-500/20 text-xs font-bold text-purple-400">
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">
                 1
               </div>
               <div>
-                <p className="font-medium text-white">Browse exercises</p>
-                <p className="text-zinc-400">Explore our library based on your equipment</p>
+                <p className="font-medium text-foreground">Browse exercises</p>
+                <p className="text-muted-foreground">Explore our library based on your equipment</p>
               </div>
             </div>
             <div className="flex items-start gap-3 text-sm">
-              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-500/20 text-xs font-bold text-pink-400">
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-500/20 text-xs font-bold text-purple-500">
                 2
               </div>
               <div>
-                <p className="font-medium text-white">Log a workout</p>
-                <p className="text-zinc-400">Track your treadmill or strength sessions</p>
+                <p className="font-medium text-foreground">Log a workout</p>
+                <p className="text-muted-foreground">Track your treadmill or strength sessions</p>
               </div>
             </div>
             <div className="flex items-start gap-3 text-sm">
-              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-xs font-bold text-cyan-400">
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-500/20 text-xs font-bold text-orange-500">
                 3
               </div>
               <div>
-                <p className="font-medium text-white">Generate AI plans</p>
-                <p className="text-zinc-400">Get personalized workout recommendations</p>
+                <p className="font-medium text-foreground">Generate AI plans</p>
+                <p className="text-muted-foreground">Get personalized workout recommendations</p>
               </div>
             </div>
           </div>
@@ -543,7 +543,7 @@ function CompleteStep({ onFinish }: { onFinish: () => void }) {
 
       <Button
         onClick={onFinish}
-        className="w-full gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+        className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
       >
         Go to Dashboard
         <ArrowRight className="h-4 w-4" />

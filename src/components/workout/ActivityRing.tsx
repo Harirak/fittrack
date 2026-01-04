@@ -29,20 +29,20 @@ export function ActivityRing({
       <svg width={size} height={size} className="transform -rotate-90">
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#667eea" />
-            <stop offset="100%" stopColor="#a855f7" />
+            <stop offset="0%" stopColor="#A8D922" />
+            <stop offset="100%" stopColor="#F6F6F6" />
           </linearGradient>
           <linearGradient id="gradient-green" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#22c55e" />
-            <stop offset="100%" stopColor="#10b981" />
+            <stop offset="0%" stopColor="#84cc16" />
+            <stop offset="100%" stopColor="#A8D922" />
           </linearGradient>
           <linearGradient id="gradient-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#06b6d4" />
-            <stop offset="100%" stopColor="#0ea5e9" />
+            <stop offset="0%" stopColor="#ecfccb" />
+            <stop offset="100%" stopColor="#A8D922" />
           </linearGradient>
           <linearGradient id="gradient-coral" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#f97316" />
-            <stop offset="100%" stopColor="#ef4444" />
+            <stop offset="0%" stopColor="#A8D922" />
+            <stop offset="100%" stopColor="#84cc16" />
           </linearGradient>
         </defs>
         {/* Background circle */}
@@ -94,16 +94,16 @@ export function MultiActivityRing({ rings, size = 140, strokeWidth = 10, childre
       <svg width={size} height={size} className="transform -rotate-90">
         <defs>
           <linearGradient id="ring-duration" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#667eea" />
-            <stop offset="100%" stopColor="#a855f7" />
+            <stop offset="0%" stopColor="#A8D922" />
+            <stop offset="100%" stopColor="#F6F6F6" />
           </linearGradient>
           <linearGradient id="ring-distance" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#22c55e" />
-            <stop offset="100%" stopColor="#10b981" />
+            <stop offset="0%" stopColor="#84cc16" />
+            <stop offset="100%" stopColor="#A8D922" />
           </linearGradient>
           <linearGradient id="ring-workouts" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#f97316" />
-            <stop offset="100%" stopColor="#ef4444" />
+            <stop offset="0%" stopColor="#ecfccb" />
+            <stop offset="100%" stopColor="#A8D922" />
           </linearGradient>
         </defs>
 

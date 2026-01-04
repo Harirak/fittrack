@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2026-01-03
 
 ## Active Technologies
+- TypeScript 5.x + Tailwind CSS 3.x, shadcn/ui (002-apply-new-theme)
+- N/A (Visual update only) (002-apply-new-theme)
 
 - TypeScript 5.x (strict mode) (001-fittrack-mvp)
 
@@ -22,6 +24,7 @@ npm test && npm run lint
 TypeScript 5.x (strict mode): Follow standard conventions
 
 ## Recent Changes
+- 002-apply-new-theme: Added TypeScript 5.x + Tailwind CSS 3.x, shadcn/ui
 
 - 001-fittrack-mvp: Added TypeScript 5.x (strict mode)
 

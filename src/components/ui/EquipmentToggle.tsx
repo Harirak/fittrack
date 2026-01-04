@@ -1,9 +1,9 @@
 'use client';
 
 import { EquipmentProfile } from '@/lib/db/schema';
-import { Dumbbell } from 'lucide-react';
+import { Dumbbell, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { EQUIPMENT_TYPES, EQUIPMENT_LABELS } from '@/lib/constants';
+import { EQUIPMENT_LABELS } from '@/lib/constants';
 
 interface EquipmentToggleProps {
   profile: EquipmentProfile;
@@ -16,6 +16,8 @@ const equipmentIcons: Record<string, React.ElementType> = {
   barbells: Dumbbell,
   kettlebells: Dumbbell,
   bodyweight: Dumbbell,
+  // weightMachines: Weight, // removed as not in keys
+  // cableMachines: Cable,
 };
 
 const equipmentDescriptions: Record<string, string> = {
@@ -40,7 +42,7 @@ export function EquipmentToggle({
   return (
     <div className="grid grid-cols-2 gap-3">
       {equipmentKeys.map((key) => {
-        const Icon = equipmentIcons[key];
+        const Icon = equipmentIcons[key] || Dumbbell;
         const isSelected = profile[key];
         const isBodyweight = key === 'bodyweight';
 
@@ -55,17 +57,17 @@ export function EquipmentToggle({
               'min-h-[120px] justify-center',
               'hover:scale-105 active:scale-95',
               isSelected
-                ? 'border-purple-500 bg-gradient-to-br from-purple-500/20 to-pink-500/20 shadow-lg shadow-purple-500/20'
-                : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700',
-              (disabled || isBodyweight) && 'cursor-not-allowed opacity-60'
+                ? 'border-primary bg-primary/10 shadow-lg shadow-primary/10'
+                : 'border-border bg-card hover:border-primary/50',
+              (disabled || isBodyweight) && 'cursor-default opacity-80' // Changed cursor-not-allowed to default for bodyweight since it's just "always on"
             )}
           >
             <div
               className={cn(
                 'rounded-full p-3 transition-colors',
                 isSelected
-                  ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
-                  : 'bg-zinc-800 text-zinc-400'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted text-muted-foreground'
               )}
             >
               <Icon className="h-6 w-6" />
@@ -74,26 +76,26 @@ export function EquipmentToggle({
               <div
                 className={cn(
                   'text-sm font-medium',
-                  isSelected ? 'text-white' : 'text-zinc-400'
+                  isSelected ? 'text-foreground' : 'text-muted-foreground'
                 )}
               >
                 {EQUIPMENT_LABELS[key]}
               </div>
-              <div className="mt-1 text-xs text-zinc-500">
+              <div className="mt-1 text-xs text-muted-foreground">
                 {equipmentDescriptions[key]}
               </div>
             </div>
             {isBodyweight && (
               <div className="absolute right-2 top-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500/20 text-xs text-green-400">
-                  ✓
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/20 text-xs text-primary">
+                  <Check className="h-3 w-3" />
                 </span>
               </div>
             )}
             {isSelected && !isBodyweight && (
               <div className="absolute right-2 top-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-500 text-xs font-bold text-white">
-                  ✓
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                  <Check className="h-3 w-3" />
                 </span>
               </div>
             )}

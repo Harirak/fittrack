@@ -211,52 +211,51 @@ export default function ProfilePage() {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6">
+    <div className="mx-auto max-w-2xl lg:max-w-4xl px-4 md:px-6 py-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white">Profile & Settings</h1>
-        <p className="text-zinc-400">Manage your account and preferences</p>
+        <h1 className="text-2xl font-bold text-foreground">Profile & Settings</h1>
+        <p className="text-muted-foreground">Manage your account and preferences</p>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 bg-zinc-900">
-          <TabsTrigger value="profile" className="data-[state=active]:bg-purple-500/20">
+        <TabsList className="grid w-full grid-cols-3 bg-muted">
+          <TabsTrigger value="profile" className="data-[state=active]:bg-background">
             <User className="mr-2 h-4 w-4" />
             Profile
           </TabsTrigger>
-          <TabsTrigger value="equipment" className="data-[state=active]:bg-purple-500/20">
+          <TabsTrigger value="equipment" className="data-[state=active]:bg-background">
             <Dumbbell className="mr-2 h-4 w-4" />
             Equipment
           </TabsTrigger>
-          <TabsTrigger value="goals" className="data-[state=active]:bg-purple-500/20">
+          <TabsTrigger value="goals" className="data-[state=active]:bg-background">
             <Target className="mr-2 h-4 w-4" />
             Goals
           </TabsTrigger>
         </TabsList>
 
-        {/* Profile Tab */}
         <TabsContent value="profile" className="space-y-4">
-          <Card className="border-zinc-800 bg-zinc-900/50">
+          <Card className="border-border bg-card">
             <CardHeader>
-              <CardTitle className="text-white">Personal Information</CardTitle>
+              <CardTitle className="text-foreground">Personal Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="mb-2 block text-sm font-medium text-zinc-300">
+                <label className="mb-2 block text-sm font-medium text-foreground">
                   Email
                 </label>
                 <Input
                   type="email"
                   value={user?.email ?? ''}
                   disabled
-                  className="border-zinc-800 bg-zinc-950 text-zinc-500"
+                  className="border-input bg-muted text-muted-foreground"
                 />
-                <p className="mt-1 text-xs text-zinc-500">
+                <p className="mt-1 text-xs text-muted-foreground">
                   Email cannot be changed
                 </p>
               </div>
@@ -270,13 +269,13 @@ export default function ProfilePage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Enter your name"
-                  className="border-zinc-800 bg-zinc-950 text-white placeholder:text-zinc-600"
+                  className="border-input bg-background text-foreground placeholder:text-muted-foreground"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-zinc-300">
+                  <label className="mb-2 block text-sm font-medium text-foreground">
                     {getWeightLabel()}
                   </label>
                   <Input
@@ -284,12 +283,12 @@ export default function ProfilePage() {
                     value={formData.weightKg}
                     onChange={(e) => setFormData({ ...formData, weightKg: e.target.value })}
                     placeholder={formData.unitPreference === 'metric' ? '70' : '154'}
-                    className="border-zinc-800 bg-zinc-950 text-white placeholder:text-zinc-600"
+                    className="border-input bg-background text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-zinc-300">
+                  <label className="mb-2 block text-sm font-medium text-foreground">
                     Unit Preference
                   </label>
                   <select
@@ -300,7 +299,7 @@ export default function ProfilePage() {
                         unitPreference: e.target.value as 'metric' | 'imperial',
                       })
                     }
-                    className="h-10 w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 text-white"
+                    className="h-10 w-full rounded-md border border-input bg-background px-3 text-foreground"
                   >
                     <option value="metric">Metric (kg, km)</option>
                     <option value="imperial">Imperial (lb, mi)</option>
@@ -321,8 +320,8 @@ export default function ProfilePage() {
                       className={cn(
                         'rounded-lg border-2 p-3 text-center transition-all',
                         formData.fitnessLevel === level
-                          ? 'border-purple-500 bg-purple-500/10 text-white'
-                          : 'border-zinc-800 bg-zinc-950 text-zinc-400 hover:border-zinc-700'
+                          ? 'border-primary bg-primary/10 text-foreground'
+                          : 'border-input bg-background text-muted-foreground hover:border-primary/50'
                       )}
                     >
                       {FITNESS_LEVEL_LABELS[level]}
@@ -335,7 +334,7 @@ export default function ProfilePage() {
                 <Button
                   onClick={handleSaveProfile}
                   disabled={isSaving}
-                  className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   {isSaving ? (
                     <>
@@ -356,10 +355,10 @@ export default function ProfilePage() {
 
         {/* Equipment Tab */}
         <TabsContent value="equipment" className="space-y-4">
-          <Card className="border-zinc-800 bg-zinc-900/50">
+          <Card className="border-border bg-card">
             <CardHeader>
-              <CardTitle className="text-white">Your Equipment</CardTitle>
-              <p className="text-sm text-zinc-400">
+              <CardTitle className="text-foreground">Your Equipment</CardTitle>
+              <p className="text-sm text-muted-foreground">
                 Select all the equipment you have access to. This will be used to filter exercises and
                 generate workout plans.
               </p>
@@ -376,7 +375,7 @@ export default function ProfilePage() {
                 <Button
                   onClick={handleSaveEquipment}
                   disabled={isSaving}
-                  className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   {isSaving ? (
                     <>
@@ -396,9 +395,9 @@ export default function ProfilePage() {
 
           {/* Current Equipment Summary */}
           {equipment && (
-            <Card className="border-zinc-800 bg-zinc-900/50">
+            <Card className="border-border bg-card">
               <CardHeader>
-                <CardTitle className="text-sm font-medium text-white">Current Selection</CardTitle>
+                <CardTitle className="text-sm font-medium text-foreground">Current Selection</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
@@ -430,20 +429,20 @@ export default function ProfilePage() {
 
         {/* Goals Tab */}
         <TabsContent value="goals" className="space-y-4">
-          <Card className="border-zinc-800 bg-zinc-900/50">
+          <Card className="border-border bg-card">
             <CardHeader>
-              <CardTitle className="text-white">Activity Goals</CardTitle>
-              <p className="text-sm text-zinc-400">
+              <CardTitle className="text-foreground">Activity Goals</CardTitle>
+              <p className="text-sm text-muted-foreground">
                 Set your daily and weekly fitness targets to track your progress.
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Daily Goals */}
               <div>
-                <h3 className="mb-4 font-medium text-white">Daily Goals</h3>
-                <div className="grid gap-4">
+                <h3 className="mb-4 font-medium text-foreground">Daily Goals</h3>
+                <div className="grid gap-4 sm:grid-cols-3">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-300">
+                    <label className="mb-2 block text-sm font-medium text-foreground">
                       Duration (minutes)
                     </label>
                     <Input
@@ -460,11 +459,11 @@ export default function ProfilePage() {
                           },
                         })
                       }
-                      className="border-zinc-800 bg-zinc-950 text-white"
+                      className="border-input bg-background text-foreground"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-300">
+                    <label className="mb-2 block text-sm font-medium text-foreground">
                       Distance ({formData.unitPreference === 'metric' ? 'km' : 'mi'})
                     </label>
                     <Input
@@ -481,11 +480,11 @@ export default function ProfilePage() {
                           },
                         })
                       }
-                      className="border-zinc-800 bg-zinc-950 text-white"
+                      className="border-input bg-background text-foreground"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-300">
+                    <label className="mb-2 block text-sm font-medium text-foreground">
                       Workouts per day
                     </label>
                     <Input
@@ -502,20 +501,20 @@ export default function ProfilePage() {
                           },
                         })
                       }
-                      className="border-zinc-800 bg-zinc-950 text-white"
+                      className="border-input bg-background text-foreground"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="h-px border-zinc-800" />
+              <div className="h-px border-border" />
 
               {/* Weekly Goals */}
               <div>
-                <h3 className="mb-4 font-medium text-white">Weekly Goals</h3>
-                <div className="grid gap-4">
+                <h3 className="mb-4 font-medium text-foreground">Weekly Goals</h3>
+                <div className="grid gap-4 sm:grid-cols-3">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-300">
+                    <label className="mb-2 block text-sm font-medium text-foreground">
                       Duration (minutes)
                     </label>
                     <Input
@@ -532,11 +531,11 @@ export default function ProfilePage() {
                           },
                         })
                       }
-                      className="border-zinc-800 bg-zinc-950 text-white"
+                      className="border-input bg-background text-foreground"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-300">
+                    <label className="mb-2 block text-sm font-medium text-foreground">
                       Distance ({formData.unitPreference === 'metric' ? 'km' : 'mi'})
                     </label>
                     <Input
@@ -553,11 +552,11 @@ export default function ProfilePage() {
                           },
                         })
                       }
-                      className="border-zinc-800 bg-zinc-950 text-white"
+                      className="border-input bg-background text-foreground"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-300">
+                    <label className="mb-2 block text-sm font-medium text-foreground">
                       Workouts per week
                     </label>
                     <Input
@@ -574,7 +573,7 @@ export default function ProfilePage() {
                           },
                         })
                       }
-                      className="border-zinc-800 bg-zinc-950 text-white"
+                      className="border-input bg-background text-foreground"
                     />
                   </div>
                 </div>
@@ -584,7 +583,7 @@ export default function ProfilePage() {
                 <Button
                   onClick={handleSaveGoals}
                   disabled={isSaving}
-                  className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   {isSaving ? (
                     <>

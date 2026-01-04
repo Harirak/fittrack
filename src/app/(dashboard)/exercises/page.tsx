@@ -92,27 +92,27 @@ export default function ExercisesPage() {
   );
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-7xl">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 max-w-7xl">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-white mb-2">Exercise Library</h1>
-        <p className="text-gray-400">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Exercise Library</h1>
+        <p className="text-muted-foreground">
           Browse and filter exercises based on your available equipment
         </p>
       </div>
 
       {/* Search and Filters */}
-      <div className="sticky top-0 bg-black/95 backdrop-blur-sm z-10 pb-4 mb-6 border-b border-gray-800">
+      <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-10 pb-4 mb-6 border-b border-border">
         <div className="flex flex-col gap-4">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
               type="text"
               placeholder="Search exercises..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-gray-900 border-gray-700 text-white placeholder:text-gray-500"
+              className="pl-10 bg-card border-input text-foreground placeholder:text-muted-foreground"
             />
           </div>
 
@@ -150,7 +150,7 @@ export default function ExercisesPage() {
       {/* Exercises Grid */}
       {loading ? (
         <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           <p className="mt-4 text-gray-400">Loading exercises...</p>
         </div>
       ) : availableExercises.length === 0 ? (
@@ -161,7 +161,7 @@ export default function ExercisesPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {availableExercises.map((exercise) => (
             <ExerciseCard
               key={exercise.id}

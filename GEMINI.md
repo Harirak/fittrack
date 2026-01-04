@@ -1,0 +1,1 @@
+Rule: Use 192.168.1.101 instead of localhost for checking the application.
